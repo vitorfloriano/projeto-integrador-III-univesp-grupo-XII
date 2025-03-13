@@ -1,0 +1,94 @@
+/*Main*/
+
+main{
+    display: flex;
+}
+
+/*Container 1 e seu título*/
+
+.container1 {
+    width: 600px;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-top: 5%;
+    border-radius: 5px;
+    align-items: start;
+}
+
+fieldset{
+    border: none;
+}
+
+select{
+    width: 104%;
+}
+
+h2 {
+    text-align: start;
+}
+
+h6{
+    text-align: initial;
+}
+
+/*Configurações das áreas de texto*/
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/*Botão de envio*/
+
+input[type="submit"] {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    position:-ms-page;
+    width: 620px;
+    transition: background-color 0.3s ease;
+}
+
+/*Container do lado direito*/
+
+.container2 {
+    width: 40%;
+    margin-bottom: 9%;
+    margin-left: 9%;
+    margin-top: 9%;
+    text-align: start;
+    border-radius: 5px;
+}
+
+.map-container {
+    text-align: end;
+    height: 60%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Estilize os ícones */
+
+.fa-mobile,
+.fa-map-marker,
+.fa-envelope {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+/* Estilize o texto */
+
+.span {
+    font-size: 16px;
+}

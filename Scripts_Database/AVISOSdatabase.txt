@@ -1,0 +1,15 @@
+O Folder Scripts_Database é um folder com os scripts e os arquivos csvs para recriar a database localmente se necessário
+Está aqui para uso do grupo, mas também talvez seja usado na correção se tivermos problemas com o hosteamento
+
+Quando criada, as configurações originais eram
+
+user: postgres
+senha: avocado 123
+port: 5432
+database name: dbpi
+
+E para login no django admin é utilizado
+
+pi2
+pi2@avocado.com
+senha: escanor 456
