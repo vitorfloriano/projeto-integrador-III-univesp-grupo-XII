@@ -16,14 +16,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+# Temporarily commenting out this import to fix the startup issue
+# from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path('AutoItaAdmin/', admin.site.urls),
     path('', include ('app.urls')),
     path('Forms', include ('app.urls')),
     path('Contato', include ('app.urls')),
-    path('HomePage', include ('app.urls'))
+    path('HomePage', include ('app.urls')),
+    path('api/', include('app.api_urls')),
+    # Temporarily disabling API docs until we fix the coreapi issue
+    # path('api-docs/', include_docs_urls(title='Autoita API Documentation')),
 ]
+
+# Add this section to serve static files during development
+if settings.DEBUG:
+    # Use STATICFILES_DIRS as the document_root since STATIC_ROOT is typically for production
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
 
 admin.site.site_title = "Administração AutoIta"
 admin.site.site_header = "Administração"
