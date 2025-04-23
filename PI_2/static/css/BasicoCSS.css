@@ -2,80 +2,109 @@ body {
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 2.8vh;
+    font-size: 16px;
     line-height: 1.5;
     text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
 /*SEÇÃO DA GUIA NO TOPO DA PÁGINA ---------- */
 
-ul {
+ul.menu {
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     border: none;
     overflow: hidden;
     position: fixed;
-    z-index: 10;
-    top: 0px;
-    left: 0px;
+    z-index: 100;
+    top: 0;
+    left: 0;
     width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 
-  .container img{
-    float: left;
-    max-width:500px;
-    max-height:64px;
+  .container img {
+    max-width: 200px;
+    max-height: 64px;
     width: auto;
     height: auto;
-    transition: background-color 0.3s ease;
+    padding: 8px 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .container img:hover {
+    transform: scale(1.05);
   }
 
   li {
-    float: left;
+    display: flex;
+    align-items: center;
     font-family: monospace;
+    margin: 0 2px;
   }
 
   li a {
-    display: block;
+    display: flex;
+    align-items: center;
     text-align: center;
     padding: 16px 18px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+
+  li a:hover {
+    transform: translateY(-2px);
   }
 
   li span {
-    font-size: 3vh;
+    font-size: 1rem;
+    margin-left: 5px;
   }
 
   .muda_tema {
-    position: fixed;
-    font-size: 10px;
-    left: 1410px;
+    position: absolute;
+    font-size: 12px;
+    right: 20px;
     top: 25px;
-    border-radius: 7px;
+    padding: 5px 10px;
+    border-radius: 20px;
     background-color: transparent;
-    border-color: #f1f1f1;
+    border: 2px solid;
     color: #f1f1f1;
-    z-index: 11;
+    z-index: 101;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .muda_tema:hover {
+    transform: scale(1.1);
   }
 
 /* SEÇÃO DO FOOTER ---------- */
 
 .footer_banner {
-    height: 250px;
+    min-height: 150px;
     width: 100%;
     position: relative;
-    bottom: 0;
-    right: auto;
+    margin-top: auto;
     z-index: 2;
   }
 
   .gradient2 {
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(90deg, black, transparent);
+    background-image: linear-gradient(90deg, rgba(0,0,0,0.8), transparent);
     position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .footer_banner img {
@@ -83,21 +112,95 @@ ul {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    object-position: left;
+    object-position: center;
   }
 
   .texto_footer {
     position: absolute;
-    top: 1%;
+    top: 10px;
     left: 5%;
     color: #F8F7F4;
     font-size: 16px;
     font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    max-width: 50%;
+    text-align: left;
   }
+
+main {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+    margin-top: 80px;
+}
+
+/* Media query para menu responsivo */
+@media screen and (max-width: 768px) {
+  ul.menu {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  li {
+    width: 100%;
+    margin: 2px 0;
+  }
+  
+  li a {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .container img {
+    margin: 0 auto 10px;
+    display: block;
+  }
+  
+  .muda_tema {
+    position: relative;
+    right: auto;
+    top: auto;
+    margin: 10px auto;
+    display: block;
+  }
+  
+  .footer_banner {
+    min-height: 120px;
+  }
+  
+  .texto_footer {
+    font-size: 12px;
+    max-width: 70%;
+  }
+
+  main {
+    margin-top: 250px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  ul.menu {
+    padding: 5px 0;
+  }
+
+  .container img {
+    max-width: 180px;
+  }
+
+  .texto_footer {
+    font-size: 10px;
+  }
+
+  main {
+    margin-top: 300px;
+  }
+}
 
 /*
   Minimal e Warm: EAE7DC D8C3A5 8E8D8A E98074 E85A4F
-
   Gorgeous Contrast 61892F 86C232 222629 474B4F 6B6E70
-
   Rose Red 4285F4 5C2018 BC4639 D4A59A F3E0DC */

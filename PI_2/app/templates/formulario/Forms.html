@@ -33,6 +33,7 @@
 
     <div class="box">
         <form action="/Forms" method="POST">
+            {% csrf_token %}
             <fieldset>
                 <h1><b>Cadastro Concorrente à Vaga</b></h1>
                 

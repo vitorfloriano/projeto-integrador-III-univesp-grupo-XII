@@ -1,5 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Categoria, Marca, Produto
+
+# View de teste sem nenhuma dependência
+def test_view(request):
+    return HttpResponse("Página de teste funcionando!")
 
 def homepage(request):
     return render(request, 'homepage/HomePage.html')

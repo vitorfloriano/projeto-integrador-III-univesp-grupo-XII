@@ -1,23 +1,33 @@
 /*Caixa do Formulário*/
 
 .box {
-    position:sticky;
-    width: 50%;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
     text-align: left;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 fieldset {
     border: none;
+    padding: 0;
 }
 
 h1 {
-    font-size: 30px;
-    margin: 84px 80px 20px 90px;
+    font-size: 2rem;
+    margin: 1rem 0 1.5rem;
+    text-align: center;
+    color: inherit;
 }
 
 p {
-    margin: 0px 80px;
-    font-size: 15px;
+    margin: 0.8rem 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 /*Campos de preenchimento*/
@@ -26,56 +36,160 @@ input[type="text"],
 input[type="date"],
 input[type="email"],
 textarea {
-    width: 70%;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
-    margin: 10px 80px;
+    border-radius: 8px;
+    margin: 8px 0 16px;
     resize: none;
-    font-size: 20px;
+    font-size: 1rem;
     outline: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 input[type="radio"] {
-    margin: 10px 10px 10px 80px;
+    margin: 10px;
 }
 
 /*Botão de envio*/
 
 #enviar {
-    width: 50%;
-    padding: 10px;
-    font-size: 30px;
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 1.1rem;
     cursor: pointer;
     font-weight: bold;
-    margin: 0px 24%;
-    border-radius: 15px;
+    margin: 1.5rem auto;
+    border-radius: 50px;
     border: none;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    display: block;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/*Caixa a Direita, e seu flavor text*/
+#enviar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/*Caixa à Direita, e seu flavor text*/
 
 .box2 {
-    position: absolute;
-    width: 50%;
-    right: 0px;
-    top: 61px;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 h2 {
     font-weight: bold;
-    font-size: 35px;
+    font-size: 1.6rem;
     text-align: center;
-    margin: 70px 80px 30px 85px;
+    margin: 1rem 0;
 }
 
 .flavor_forms {
-    font-size: 18px;
+    font-size: 1.1rem;
     text-align: center;
-    margin: 0px 80px;
+    line-height: 1.6;
+    margin: 1rem 0;
 }
 
 .flavor_logo {
-    margin-top: 50px;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.flavor_logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 180px;
+    transition: transform 0.3s ease;
+}
+
+.flavor_logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Layout para telas maiores */
+@media (min-width: 992px) {
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 1rem;
+    }
+    
+    .box {
+        flex: 1;
+        min-width: 45%;
+        max-width: 600px;
+        margin: 1rem;
+    }
+    
+    .box2 {
+        flex: 1;
+        min-width: 45%;
+        max-width: 500px;
+        margin: 1rem;
+        margin-top: 3.5rem;
+    }
+}
+
+/* Layout para telas menores */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    .box, .box2 {
+        margin-bottom: 2rem;
+        padding: 1rem;
+    }
+    
+    #enviar {
+        width: 80%;
+    }
+    
+    .flavor_forms {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+    }
+    
+    input[type="text"], 
+    input[type="date"],
+    input[type="email"],
+    textarea {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+    
+    #enviar {
+        font-size: 1rem;
+        padding: 10px;
+    }
 }
