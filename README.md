@@ -1,51 +1,114 @@
-# Projeto integrador 2 Univesp Grupo 12
+# Projeto Integrador III - UNIVESP Grupo XII - Sistema AutoIta
 
-# Preparando o ambiente
+Este projeto é um sistema de gerenciamento de estoque para autopeças desenvolvido com Django.
 
-Comece iniciando o ambiente virtual
+## Formas de Execução
 
+O projeto pode ser executado de várias maneiras, dependendo do seu ambiente e necessidades:
+
+### 1. Execução Local com Ambiente Virtual
+
+#### Preparando o ambiente
+
+```bash
+# Crie um ambiente virtual
+python -m venv projeto
+
+# Ative o ambiente virtual
+# No Linux/Mac:
+source projeto/bin/activate
+# No Windows:
+projeto\Scripts\activate
+# No PowerShell:
+projeto\Scripts\Activate.ps1
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Entre no diretório do projeto
+cd PI_2
+
+# Aplique as migrações
+python manage.py migrate
+
+# Execute o servidor de desenvolvimento
+python manage.py runserver
 ```
-$ python -m venv projeto
+
+### 2. Execução com Docker (Desenvolvimento)
+
+Para executar o projeto em um ambiente Docker isolado:
+
+```bash
+# Construir e iniciar os containers
+docker-compose up -d
+
+# Para visualizar os logs
+docker-compose logs -f
+
+# Para parar os containers
+docker-compose down
 ```
 
-Isso ira criar o ambiente virtual do projeto, sendo este nomeado como "projeto" nesse caso
+### 3. Implantação em Produção
 
-AVISO, no caso do gitignore não funcionar, rodar o comando no root chamando o venv de "projeto" deve, em casos normais, passar por cima do venv incorreto, e permitir rodar o projeto
+Para ambientes de produção, o projeto está configurado para usar variáveis de ambiente para maior segurança e flexibilidade.
 
-### Ative o ambiente virtual
+#### Usando Docker em Produção
 
-No diretório raiz do projeto, execute o comando, de acordo com sua necessidade:
+```bash
+# Configure as variáveis de ambiente necessárias
+export DJANGO_ENV=production
+export DJANGO_SECRET_KEY='sua-chave-secreta'
+export DEBUG=False
+export ALLOWED_HOSTS=seu-dominio.com,www.seu-dominio.com
+export DATABASE_ENGINE=sqlite  # ou postgresql
 
-Linux:
+# Para PostgreSQL, defina estas variáveis adicionais
+# export DATABASE_NAME=dbpi
+# export DATABASE_USER=postgres
+# export DATABASE_PASSWORD=senha-segura
+# export DATABASE_HOST=db
+# export DATABASE_PORT=5432
 
+# Execute o Docker Compose
+docker-compose up -d
 ```
-$ source venv/bin/activate
+
+## Configurações de Banco de Dados
+
+O projeto suporta tanto SQLite (padrão) quanto PostgreSQL:
+
+### SQLite (Padrão)
+- Não requer configuração adicional
+- Ideal para desenvolvimento e testes
+
+### PostgreSQL
+- Requer a definição de variáveis de ambiente
+- Melhor para ambientes de produção com maior volume de dados
+- Configure usando as variáveis DATABASE_* mencionadas acima
+
+## Executando testes
+
+```bash
+# No diretório do projeto (PI_2)
+python manage.py test
 ```
 
-Windows:
+## Estrutura da Aplicação
 
-```
-$ venv\Scripts\activate
-```
+- `app/`: Aplicação principal contendo os modelos e lógica de negócio
+- `PI_2/`: Configurações do projeto Django
+- `static/`: Arquivos estáticos (CSS, JS, imagens)
+- `app/templates/`: Templates HTML
+- `app/migrations/`: Migrações do banco de dados
 
-Windows PowerShell:
+## Contribuindo
 
-```
-$ venv\Scripts\Activate.ps1
-```
-
-Instale os pacotes necessários, sendo os seguintes:
-
--Django
--Django-admin-interface
--psycopg2
--psycopg2-binary
-
-Usando os comandos
-
-pip install Django
-pip install Django-admin-interface
-pip install psycopg2
-pip install psycopg2-binary
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adicionando nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
 
 
