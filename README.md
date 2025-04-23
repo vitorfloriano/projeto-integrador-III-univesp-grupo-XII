@@ -16,9 +16,9 @@ Este projeto é um sistema de gerenciamento de estoque e catálogo online para a
 
 - **Backend**: Django, Django REST Framework
 - **Frontend**: HTML, CSS, JavaScript
-- **Banco de Dados**: PostgreSQL
+- **Banco de Dados**: PostgreSQL (em produção) e SQLite (em desenvolvimento)
 - **Containerização**: Docker e Docker Compose
-- **Deploy**: Configuração para ambientes de produção com variáveis de ambiente
+- **Deploy**: Azure App Service, configuração para ambientes de produção com variáveis de ambiente
 
 ## API REST
 
@@ -105,6 +105,51 @@ export DATABASE_PORT=5432
 # Execute o Docker Compose
 docker-compose up -d
 ```
+
+### 4. Implantação no Azure App Service
+
+O projeto está configurado para ser implantado no Azure App Service, permitindo escalabilidade e gerenciamento simplificado.
+
+#### Configurando o Azure App Service
+
+1. **Crie um App Service no Portal do Azure**:
+   - Escolha "Web App" como tipo de aplicação
+   - Selecione "Python" como runtime stack
+   - Escolha Python 3.12 ou superior
+
+2. **Configure as variáveis de ambiente**:
+   - No portal do Azure, acesse "Configuration" > "Application settings"
+   - Adicione as seguintes variáveis:
+     - `DJANGO_ENV=production`
+     - `DJANGO_SECRET_KEY=sua-chave-secreta`
+     - `DEBUG=False`
+     - `ALLOWED_HOSTS=seu-app.azurewebsites.net`
+     - `SCM_DO_BUILD_DURING_DEPLOYMENT=true`
+     - `WEBSITE_WEBDEPLOY_USE_SCM=false`
+
+3. **Deploy via GitHub Actions ou Azure DevOps**:
+   - Configure o pipeline para usar o arquivo `azure.yml` incluído neste repositório
+   - O script `startup.sh` será executado para configurar o ambiente e iniciar a aplicação
+
+4. **Deploy manual via ZIP Deploy**:
+   ```bash
+   # Prepare o projeto para deploy
+   pip install -r requirements.txt
+   cd PI_2
+   python manage.py collectstatic --noinput
+   
+   # Comprima o projeto
+   cd ..
+   zip -r app.zip .
+   
+   # Faça upload utilizando o Azure CLI
+   az webapp deployment source config-zip --resource-group <seu-grupo-recursos> --name <seu-app-service> --src app.zip
+   ```
+
+5. **Solução de Problemas Comuns**:
+   - Se a aplicação não iniciar, verifique os logs no portal do Azure
+   - Certifique-se de que o caminho WSGI está correto em `startup.sh`
+   - Verifique se todas as dependências estão em `requirements.txt`
 
 ## Executando testes
 
