@@ -11,6 +11,12 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PI_2.settings')
+# Verificar se estamos no ambiente de produção (Azure)
+if 'WEBSITE_HOSTNAME' in os.environ:
+    print("Detectado ambiente Azure App Service, usando configurações de produção")
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PI_2.settings_production')
+else:
+    print("Usando configurações de desenvolvimento locais")
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PI_2.settings')
 
 application = get_wsgi_application()

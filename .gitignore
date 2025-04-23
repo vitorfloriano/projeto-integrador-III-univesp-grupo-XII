@@ -1,40 +1,76 @@
-# Ambientes virtuais
-.venv/
-venv/
-env/
-ENV/
-
-# Arquivos Python compilados
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 */__pycache__/
 app/__pycache__/
 PI_2/__pycache__/
+
+# C extensions
 *.so
 
-# Banco de dados
-*.db
-*.sqlite3
-db.sqlite3
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Migrações Django
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+antenv/
+
+# Django stuff
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
 */migrations/*.py
 !*/migrations/__init__.py
 
-# Arquivos estáticos coletados
-/staticfiles/
+# Azure stuff
+.python_packages/
+.vscode/
+.idea/
+__azurite*
+__blobstorage*
+__queuestorage*
+__tablestorage*
+
+# Static files collected
+staticfiles/
+static_collected/
 /media/
 
+# Local development settings
+.env.local
+.env.development
+.env.test
+.env.production
+
 # Arquivos de configuração e ambiente
-.env
 .env.*
 *.env
 .DS_Store
 
 # Arquivos de IDE/editores
-.idea/
-.vscode/
 *.swp
 *.swo
 *~
@@ -43,7 +79,6 @@ db.sqlite3
 # Arquivos temporários
 .tmp/
 .temp/
-*.log
 *.pot
 logs/
 tmp/
