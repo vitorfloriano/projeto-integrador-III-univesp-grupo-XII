@@ -1,6 +1,37 @@
 # Projeto Integrador III - UNIVESP Grupo XII - Sistema AutoIta
 
-Este projeto é um sistema de gerenciamento de estoque para autopeças desenvolvido com Django.
+Este projeto é um sistema de gerenciamento de estoque e catálogo online para a loja de autopeças AutoIta, desenvolvido com Django e Django REST Framework.
+
+## Funcionalidades
+
+- **Catálogo de Produtos**: Interface amigável para visualização do estoque de peças
+- **Sistema de Filtros**: Busca de produtos por categoria, marca ou nome
+- **Gerenciamento de Estoque**: Controle de entrada e saída de produtos
+- **API REST**: Endpoints para integração com outros sistemas
+- **Painel Administrativo**: Interface de administração completa para gerenciamento de dados
+- **Interface Responsiva**: Suporte a dispositivos móveis e desktop
+- **Tema Claro/Escuro**: Opção de alternância entre temas
+
+## Tecnologias Utilizadas
+
+- **Backend**: Django, Django REST Framework
+- **Frontend**: HTML, CSS, JavaScript
+- **Banco de Dados**: PostgreSQL
+- **Containerização**: Docker e Docker Compose
+- **Deploy**: Configuração para ambientes de produção com variáveis de ambiente
+
+## API REST
+
+O sistema conta com uma API REST completa para:
+
+- Gerenciamento de Categorias
+- Gerenciamento de Marcas
+- Gerenciamento de Fornecedores
+- Gerenciamento de Produtos
+- Controle de Estoque (entrada e saída)
+- Relacionamento entre Produtos e Fornecedores
+
+Para mais informações, consulte a documentação detalhada da API no arquivo `API_DOCS.md`.
 
 ## Formas de Execução
 
@@ -62,33 +93,22 @@ export DJANGO_ENV=production
 export DJANGO_SECRET_KEY='sua-chave-secreta'
 export DEBUG=False
 export ALLOWED_HOSTS=seu-dominio.com,www.seu-dominio.com
-export DATABASE_ENGINE=sqlite  # ou postgresql
+export DATABASE_ENGINE=postgresql
 
 # Para PostgreSQL, defina estas variáveis adicionais
-# export DATABASE_NAME=dbpi
-# export DATABASE_USER=postgres
-# export DATABASE_PASSWORD=senha-segura
-# export DATABASE_HOST=db
-# export DATABASE_PORT=5432
+export DATABASE_NAME=dbpi
+export DATABASE_USER=postgres
+export DATABASE_PASSWORD=senha-segura
+export DATABASE_HOST=db
+export DATABASE_PORT=5432
 
 # Execute o Docker Compose
 docker-compose up -d
 ```
 
-## Configurações de Banco de Dados
-
-O projeto suporta tanto SQLite (padrão) quanto PostgreSQL:
-
-### SQLite (Padrão)
-- Não requer configuração adicional
-- Ideal para desenvolvimento e testes
-
-### PostgreSQL
-- Requer a definição de variáveis de ambiente
-- Melhor para ambientes de produção com maior volume de dados
-- Configure usando as variáveis DATABASE_* mencionadas acima
-
 ## Executando testes
+
+O projeto inclui testes automatizados para garantir o funcionamento correto das funcionalidades:
 
 ```bash
 # No diretório do projeto (PI_2)
@@ -100,8 +120,32 @@ python manage.py test
 - `app/`: Aplicação principal contendo os modelos e lógica de negócio
 - `PI_2/`: Configurações do projeto Django
 - `static/`: Arquivos estáticos (CSS, JS, imagens)
-- `app/templates/`: Templates HTML
-- `app/migrations/`: Migrações do banco de dados
+- `app/templates/`: Templates HTML para as diferentes seções do site
+  - `catalog/`: Templates do catálogo de produtos
+  - `homepage/`: Templates da página inicial
+  - `contatos/`: Templates da página de contato
+  - `formulario/`: Templates para o formulário "Trabalhe Conosco"
+- `app/api_views.py`: Endpoints da API REST
+- `app/api_urls.py`: URLs da API REST
+- `app/serializers.py`: Serializadores para a API REST
+- `Scripts_Database/`: Scripts para povoamento inicial do banco de dados
+
+## Modelos de Dados
+
+O sistema é composto pelos seguintes modelos principais:
+
+- **Categoria**: Categorias de produtos
+- **Marca**: Marcas de produtos
+- **Fornecedor**: Dados de fornecedores
+- **Produto**: Informações de produtos, incluindo estoque
+- **Produto_Fornecedor**: Relacionamento entre produtos e fornecedores
+
+## Funcionalidades da API
+
+- Filtragem de produtos por categoria, marca e nome
+- Controle de permissões baseado em autenticação
+- Endpoints para gestão de estoque (entrada/saída)
+- Documentação completa de todos os endpoints
 
 ## Contribuindo
 
