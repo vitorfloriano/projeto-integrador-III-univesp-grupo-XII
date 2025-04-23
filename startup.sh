@@ -32,6 +32,10 @@ echo "Versão do pip: $(pip --version)"
 echo "Instalando dependências..."
 pip install -r "$APP_DIR/requirements.txt"
 
+# Garantir que o Gunicorn esteja instalado
+echo "Verificando/instalando o Gunicorn..."
+pip install gunicorn
+
 # Configuração do PYTHONPATH para garantir que os módulos sejam encontrados
 export PYTHONPATH="$APP_DIR:$APP_DIR/PI_2:$PYTHONPATH"
 echo "PYTHONPATH configurado: $PYTHONPATH"
@@ -67,11 +71,23 @@ cd "$APP_DIR"
 # Testar se o módulo PI_2 está acessível
 python -c "import sys; print(sys.path); try: import PI_2; print('Módulo PI_2 importado com sucesso!'); except Exception as e: print(f'Erro ao importar PI_2: {e}')"
 
+# Verificar se o gunicorn está disponível
+if command -v gunicorn >/dev/null 2>&1; then
+    echo "Gunicorn está instalado e disponível"
+else
+    echo "ERRO: Gunicorn não está disponível mesmo após a instalação!"
+    echo "Tentando instalar novamente..."
+    pip install gunicorn
+    # Adicionar ao PATH explicitamente
+    export PATH=$HOME/antenv/bin:$PATH
+fi
+
 # Iniciando o Gunicorn com o arquivo wsgi_app.py na raiz
 echo "Iniciando o Gunicorn com wsgi_app.py..."
-echo "Comandos alternativos que podem ser usados em caso de falha:"
-echo "gunicorn --pythonpath $APP_DIR PI_2.wsgi:application --bind=0.0.0.0:8000"
-echo "gunicorn --pythonpath $APP_DIR/PI_2 PI_2.wsgi:application --bind=0.0.0.0:8000"
+
+# Usando o caminho completo para o gunicorn
+GUNICORN_PATH=$(which gunicorn 2>/dev/null || echo "$HOME/antenv/bin/gunicorn")
+echo "Caminho do Gunicorn: $GUNICORN_PATH"
 
 # Usando --pythonpath para garantir que o Gunicorn encontre os módulos
-gunicorn --pythonpath "$APP_DIR" wsgi_app:application --bind=0.0.0.0:8000 --log-level debug --timeout 120
+$GUNICORN_PATH --pythonpath "$APP_DIR" wsgi_app:application --bind=0.0.0.0:8000 --log-level debug --timeout 120
