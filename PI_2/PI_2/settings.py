@@ -21,24 +21,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-+zglft@z!+am97cu$u96@oen+$o&%(05px)qq#e#^-hnu5xp#^')
+# Removido valor padrão inseguro da SECRET_KEY
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+if not SECRET_KEY:
+    # Gera uma chave secreta aleatória apenas para desenvolvimento local
+    # Em produção, SEMPRE use uma variável de ambiente
+    import secrets
+    SECRET_KEY = secrets.token_urlsafe(50)
+    print("AVISO: Usando uma SECRET_KEY temporária. Em produção, defina a variável de ambiente DJANGO_SECRET_KEY.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# Configuração de DEBUG mais segura, desativado por padrão em produção
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Expandindo a lista de hosts permitidos para incluir todos os possíveis
-ALLOWED_HOSTS = ['*']
+# Lista de hosts permitidos mais segura
+# Em produção, deve ser restrita aos domínios válidos
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'autoitaapp.azurewebsites.net,127.0.0.1,localhost').split(',')
 
 # Configuração de origens confiáveis para CSRF
 CSRF_TRUSTED_ORIGINS = [
+    'https://autoitaapp.azurewebsites.net',
     'https://localhost:8001',
     'http://localhost:8001',
     'https://localhost:8000',
     'http://localhost:8000',
-    'https://localhost:*',
-    'http://localhost:*',
-    'https://127.0.0.1:*',
-    'http://127.0.0.1:*',
 ]
 
 # Application definition
@@ -54,14 +60,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',  # Adicionado para gerenciar CORS
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicionado para servir arquivos estáticos no Azure
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Para arquivos estáticos no Azure
+    'corsheaders.middleware.CorsMiddleware',  # Adicionado para CORS - deve ficar antes do CommonMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # Restaurando o middleware CSRF para melhor segurança
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -101,9 +108,14 @@ if database_engine == 'postgresql':
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ.get('DATABASE_NAME', 'dbpi'),
             'USER': os.environ.get('DATABASE_USER', 'postgres'),
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'avocado123'),
+            # Removida senha padrão do banco de dados
+            'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
             'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
             'PORT': os.environ.get('DATABASE_PORT', '5432'),
+            'CONN_MAX_AGE': int(os.environ.get('DATABASE_CONN_MAX_AGE', '60')),  # Pooling de conexão
+            'OPTIONS': {
+                'sslmode': os.environ.get('DATABASE_SSL_MODE', 'prefer'),
+            },
         }
     }
 else:
@@ -119,21 +131,28 @@ else:
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    # Comentando validadores de senha para facilitar o desenvolvimento
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    # },
-]
+# Ativando validadores de senha para ambiente de produção
+if not DEBUG:
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+            'OPTIONS': {
+                'min_length': 8,
+            }
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
+else:
+    # Validadores simplificados para desenvolvimento
+    AUTH_PASSWORD_VALIDATORS = []
 
 
 # Internationalization
@@ -158,11 +177,56 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# Configuração para o REST Framework para desativar autenticação por padrão
+# Configuração de segurança de cookies
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False') == 'True'  # Requer HTTPS
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'False') == 'True'  # Requer HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Impede acesso ao cookie via JavaScript
+CSRF_COOKIE_HTTPONLY = True  # Impede acesso ao cookie via JavaScript
+SECURE_BROWSER_XSS_FILTER = True  # Proteção contra XSS no navegador
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Evita sniffing de MIME types
+
+# Força HTTPS em produção
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False') == 'True'
+
+# HSTS para forçar clientes a se conectarem via HTTPS
+SECURE_HSTS_SECONDS = int(os.environ.get('SECURE_HSTS_SECONDS', '0'))  # 0 desativa, 31536000 é recomendado (1 ano)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = os.environ.get('SECURE_HSTS_INCLUDE_SUBDOMAINS', 'False') == 'True'
+SECURE_HSTS_PRELOAD = os.environ.get('SECURE_HSTS_PRELOAD', 'False') == 'True'
+
+# Configuração para o REST Framework - Adicionando autenticação e permissões básicas
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [],
-    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    # Adicionando rate limiting para evitar abusos
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '1000/day'
+    },
 }
+
+# Configurações de CORS
+if DEBUG:
+    # Em desenvolvimento, permitimos origens mais amplas para facilitar o teste
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    # Em produção, restringimos as origens permitidas
+    CORS_ALLOWED_ORIGINS = [
+        "https://autoitaapp.azurewebsites.net",
+        # Adicione outros domínios permitidos conforme necessário
+    ]
+
+# Configurações adicionais de segurança para CORS
+CORS_ALLOW_CREDENTIALS = True  # Permite envio de cookies nas requisições CORS
+CORS_PREFLIGHT_MAX_AGE = 86400  # Duração do cache da resposta preflight (24 horas)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
