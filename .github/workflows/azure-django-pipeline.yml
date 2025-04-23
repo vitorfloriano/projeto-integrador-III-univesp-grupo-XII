@@ -70,10 +70,9 @@ jobs:
           cd PI_2
           python manage.py migrate
           
-      - name: Prepare startup script
+      - name: Prepare deployment scripts
         run: |
-          cp startup.txt startup.sh
-          chmod +x startup.sh
+          chmod +x deployment/azure_startup.sh
           
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
