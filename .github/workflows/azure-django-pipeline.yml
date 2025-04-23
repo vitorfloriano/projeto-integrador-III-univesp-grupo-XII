@@ -1,0 +1,84 @@
+name: Azure Django CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Permite execução manual pelo GitHub
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test Django Application
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Run migrations
+        run: |
+          cd PI_2
+          python manage.py migrate
+          
+      - name: Run tests
+        run: |
+          cd PI_2
+          python manage.py test
+
+  deploy:
+    needs: test  # Só executa o deploy se os testes passarem
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    name: Deploy to Azure App Service
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Collect static files
+        run: |
+          cd PI_2
+          python manage.py collectstatic --noinput
+        env:
+          DEBUG: 'False'
+          
+      - name: Run migrations
+        run: |
+          cd PI_2
+          python manage.py migrate
+          
+      - name: Prepare startup script
+        run: |
+          cp startup.txt startup.sh
+          chmod +x startup.sh
+          
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'autoItaApp'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
