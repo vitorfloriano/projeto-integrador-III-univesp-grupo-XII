@@ -3,8 +3,19 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from decimal import Decimal
 from .models import Categoria, Marca, Fornecedor, Produto, Produto_Fornecedor
+from django.contrib.auth.models import User
 
 class CategoriaAPITests(APITestCase):
+    def setUp(self):
+        # Criando um usuário para autenticação nos testes
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='testpassword123',
+            email='test@example.com'
+        )
+        # Autenticando o usuário
+        self.client.force_authenticate(user=self.user)
+        
     def test_create_categoria(self):
         """
         Ensure we can create a new categoria.
@@ -29,6 +40,16 @@ class CategoriaAPITests(APITestCase):
 
 
 class MarcaAPITests(APITestCase):
+    def setUp(self):
+        # Criando um usuário para autenticação nos testes
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='testpassword123',
+            email='test@example.com'
+        )
+        # Autenticando o usuário
+        self.client.force_authenticate(user=self.user)
+        
     def test_create_marca(self):
         """
         Ensure we can create a new marca.
@@ -54,6 +75,15 @@ class MarcaAPITests(APITestCase):
 
 class ProdutoAPITests(APITestCase):
     def setUp(self):
+        # Criando um usuário para autenticação nos testes
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='testpassword123',
+            email='test@example.com'
+        )
+        # Autenticando o usuário
+        self.client.force_authenticate(user=self.user)
+        
         self.categoria = Categoria.objects.create(
             nome_categoria='Categoria de Teste',
             descricao_categoria='Descrição de teste'
@@ -107,6 +137,15 @@ class ProdutoAPITests(APITestCase):
 
 class EstoqueAPITests(APITestCase):
     def setUp(self):
+        # Criando um usuário para autenticação nos testes
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='testpassword123',
+            email='test@example.com'
+        )
+        # Autenticando o usuário
+        self.client.force_authenticate(user=self.user)
+        
         self.categoria = Categoria.objects.create(nome_categoria='Categoria de Teste')
         self.marca = Marca.objects.create(nome_marca='Marca de Teste')
         self.produto = Produto.objects.create(

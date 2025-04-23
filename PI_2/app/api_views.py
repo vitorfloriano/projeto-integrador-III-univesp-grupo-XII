@@ -68,8 +68,12 @@ class ProdutoViewSet(viewsets.ModelViewSet):
             
         return queryset
     
-    @action(detail=True, methods=['post'], url_path='entrada-estoque', permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=['post'], url_path='entrada-estoque')
     def entrada_estoque(self, request, pk=None):
+        # Verificar se o usuário está autenticado
+        if not request.user.is_authenticated:
+            return Response({'error': 'Autenticação necessária'}, status=status.HTTP_403_FORBIDDEN)
+            
         produto = self.get_object()
         serializer = EstoqueUpdateSerializer(data=request.data)
         
@@ -82,8 +86,12 @@ class ProdutoViewSet(viewsets.ModelViewSet):
                            status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    @action(detail=True, methods=['post'], url_path='saida-estoque', permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=['post'], url_path='saida-estoque')
     def saida_estoque(self, request, pk=None):
+        # Verificar se o usuário está autenticado
+        if not request.user.is_authenticated:
+            return Response({'error': 'Autenticação necessária'}, status=status.HTTP_403_FORBIDDEN)
+            
         produto = self.get_object()
         serializer = EstoqueUpdateSerializer(data=request.data)
         
