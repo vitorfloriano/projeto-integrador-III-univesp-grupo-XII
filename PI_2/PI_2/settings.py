@@ -29,6 +29,15 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 # Expandindo a lista de hosts permitidos para incluir todos os possíveis
 ALLOWED_HOSTS = ['*']
 
+# Configuração de origens confiáveis para CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8001',
+    'http://localhost:8001',
+    'https://localhost:*',
+    'http://localhost:*',
+    'https://127.0.0.1:*',
+    'http://127.0.0.1:*',
+]
 
 # Application definition
 
@@ -49,9 +58,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # Temporariamente desativando o middleware CSRF para diagnóstico
-    # 'django.middleware.csrf.CsrfViewMiddleware',
-    # Restaurando o middleware de autenticação que é necessário para o admin
+    # Restaurando o middleware CSRF para melhor segurança
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -109,18 +117,19 @@ else:
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # Comentando validadores de senha para facilitar o desenvolvimento
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
 
