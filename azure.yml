@@ -1,4 +1,29 @@
 language: python
 pythonVersion: '3.12'
 
-startupCommand: bash startup.sh
+# Use the new consolidated startup script in the deployment directory
+startupCommand: bash deployment/azure_startup.sh
+
+# Azure App Service recommended environment settings
+environmentVariables:
+  - name: DJANGO_SETTINGS_MODULE
+    value: PI_2.settings
+  - name: WEBSITE_HTTPLOGGING_RETENTION_DAYS
+    value: 7
+  - name: WEBSITE_LOG_CONTAINER_ENABLED
+    value: 1
+  - name: PYTHONPATH
+    value: /home/site/wwwroot:/home/site/wwwroot/PI_2
+
+# Azure App Service deployment settings
+appServicePlanTier: StandardS1
+appServicePlanSize: S1
+appServicePlanInstances: 1
+
+# Azure App Service scaling settings
+minReplicas: 1
+maxReplicas: 3
+targetCPUUtilizationPercentage: 70
+
+# Azure App Service health check settings
+healthCheckPath: /health/
