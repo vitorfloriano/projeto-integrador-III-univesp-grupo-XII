@@ -1,18 +1,55 @@
+# Ambientes virtuais
 .venv/
 venv/
-venv/*.*
+env/
+ENV/
 
-.projeto/
-projeto/
-projeto/*.*
-
-.__pycache__/
+# Arquivos Python compilados
 __pycache__/
-__pycache__/*.*
-
+*.py[cod]
+*$py.class
+*/__pycache__/
 app/__pycache__/
-app/__pycache__/*.*
+PI_2/__pycache__/
+*.so
 
+# Banco de dados
 *.db
-migrations/
-migrations/*.*
+*.sqlite3
+db.sqlite3
+
+# Migrações Django
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Arquivos estáticos coletados
+/staticfiles/
+/media/
+
+# Arquivos de configuração e ambiente
+.env
+.env.*
+*.env
+.DS_Store
+
+# Arquivos de IDE/editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.history/
+
+# Arquivos temporários
+.tmp/
+.temp/
+*.log
+*.pot
+logs/
+tmp/
+
+# Arquivos de cache
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
