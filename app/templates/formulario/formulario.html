@@ -13,49 +13,93 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroForms.css' %}", "{% stat
 {% endblock %}
 
 {% block conteudo %}
-    <!-- Mensagens de sucesso/erro -->
-    {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
+<main>
     <div class="box">
-        <form action="{% url 'formulario' %}" method="POST">
+        <h1>Trabalhe Conosco</h1>
+        <form action="#" method="post">
             {% csrf_token %}
             <fieldset>
-                <h1><b>Cadastro Concorrente à Vaga</b></h1>
-                
-                {% for field in form %}
-                    <p><b>{{ field.label_tag }}</b></p>
-                    {% if field.errors %}
-                        <div class="error-message">
-                            {{ field.errors }}
-                        </div>
-                    {% endif %}
-                    {{ field }}
-                {% endfor %}
-                
-                <br><br>
-                <input type="submit" name="enviar" id="enviar" value="Enviar">
+                <p>Nome Completo:</p>
+                <input type="text" name="nome" id="nome" placeholder="Seu nome completo" required>
+
+                <p>E-mail:</p>
+                <input type="email" name="email" id="email" placeholder="seu.email@exemplo.com" required>
+
+                <p>Telefone:</p>
+                <input type="text" name="telefone" id="telefone" placeholder="(XX) XXXXX-XXXX" required>
+
+                <p>Data de Nascimento:</p>
+                <input type="date" name="data_nascimento" id="data_nascimento" required>
+
+                <p>Área de Interesse:</p>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="radio" id="vendas" name="area" value="vendas" checked>
+                        <label for="vendas">Vendas</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="radio" id="estoque" name="area" value="estoque">
+                        <label for="estoque">Estoque</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="radio" id="administracao" name="area" value="administracao">
+                        <label for="administracao">Administração</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="radio" id="outro" name="area" value="outro">
+                        <label for="outro">Outro</label>
+                    </div>
+                </div>
+
+                <p>Mensagem:</p>
+                <textarea name="mensagem" id="mensagem" cols="30" rows="10" placeholder="Conte um pouco sobre você, suas experiências e pretensões..."></textarea>
+
+                <input type="submit" id="enviar" value="Enviar Currículo">
             </fieldset>
         </form>
     </div>
 
     <div class="box2">
-        <h1> Nossos Valores </h1>
-        <div class="flavor_forms"> 
-            Na AutoIta, somos uma loja de peças e acessórios automotivos, e também uma empresa familiar, valorizamos a excelência no atendimento, a qualidade dos produtos e o respeito mútuo.
-            <br>   Esperamos que nossos funcionários sejam dedicados ao seu trabalho, proativos e comprometidos, buscando sempre superar as expectativas dos clientes. Priorizamos o trabalho em equipe, a comunicação aberta e um ambiente de trabalho saudável.
-            <br>   Como uma empresa familiar, prezamos pela tradição, por relações sólidas e um ambiente harmonioso, valorizamos ética, transparência e dedicação em tudo o que fazemos, assim buscamos excelência e crescimento contínuo. Se junte a nossa equipe e podemos alcançar novos patamares na AutoIta!
-
-            <div class="flavor_logo">
-                <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo_Autoita">
-            </div>
+        <h2>Junte-se à Nossa Equipe</h2>
+        <p class="flavor_forms">
+            Na AutoIta Peças, estamos sempre em busca de profissionais talentosos e apaixonados pelo setor automotivo. 
+            Valorizamos pessoas que compartilham nossa dedicação à qualidade e ao excelente atendimento ao cliente.
+        </p>
+        <p class="flavor_forms">
+            Preencha o formulário ao lado para candidatar-se a uma vaga em nossa equipe.
+            Analisaremos seu currículo e entraremos em contato caso seu perfil se encaixe em nossas oportunidades atuais.
+        </p>
+        <div class="flavor_logo">
+            <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo AutoIta">
         </div>
     </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Máscara para o campo de telefone
+        const telefoneInput = document.getElementById('telefone');
+        
+        telefoneInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = '(' + value;
+            }
+            if (value.length > 3) {
+                value = value.substring(0, 3) + ') ' + value.substring(3);
+            }
+            if (value.length > 10) {
+                value = value.substring(0, 10) + '-' + value.substring(10, 15);
+            }
+            
+            e.target.value = value;
+        });
+    });
+</script>
 {% endblock %}

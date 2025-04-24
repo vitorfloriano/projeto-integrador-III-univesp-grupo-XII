@@ -1,175 +1,285 @@
 @import url('common.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-/*Caixa do Formulário*/
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
 
+/* Formulário */
 .box {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 550px;
     text-align: left;
-    margin: 0 auto;
-    padding: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin: 1rem;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
 fieldset {
     border: none;
     padding: 0;
+    margin: 0;
 }
 
 h1 {
     font-size: 2rem;
-    margin: 1rem 0 1.5rem;
+    margin: 0 0 1.5rem;
     text-align: center;
-    color: inherit;
+    color: #cd1818;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #cd1818;
+    border-radius: 2px;
 }
 
 p {
-    margin: 0.8rem 0 0.5rem;
+    margin: 1rem 0 0.5rem;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
+    color: #333;
 }
 
-/*Campos de preenchimento*/
-
+/* Campos de formulário */
 input[type="text"],
 input[type="date"],
 input[type="email"],
 textarea {
     width: 100%;
-    padding: 12px;
-    border: none;
+    padding: 14px;
+    border: 1px solid #e1e1e1;
     border-radius: 8px;
-    margin: 8px 0 16px;
-    resize: none;
+    margin: 6px 0 16px;
     font-size: 1rem;
     outline: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
+    background-color: #fcfcfc;
 }
 
 input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="email"]:focus,
 textarea:focus {
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    border-color: #cd1818;
+    box-shadow: 0 0 0 3px rgba(205,24,24,0.1);
+    background-color: #ffffff;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Área de checkboxes */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
 }
 
 input[type="radio"] {
-    margin: 10px;
+    margin-right: 8px;
+    accent-color: #cd1818;
+    width: 18px;
+    height: 18px;
 }
 
-/*Caixa à Direita, e seu flavor text*/
+.checkbox-item label {
+    font-size: 1rem;
+    cursor: pointer;
+}
 
+/* Botão de enviar */
+#enviar {
+    background-color: #cd1818;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 2rem auto 1rem;
+    box-shadow: 0 4px 10px rgba(205,24,24,0.2);
+    width: auto;
+    min-width: 200px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#enviar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(205,24,24,0.3);
+    background-color: #b01010;
+}
+
+/* Área de informações */
 .box2 {
     position: relative;
     width: 100%;
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    max-width: 500px;
+    margin: 1rem;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
 }
 
 h2 {
-    font-weight: bold;
-    font-size: 1.6rem;
+    font-weight: 700;
+    font-size: 1.8rem;
     text-align: center;
-    margin: 1rem 0;
+    margin: 0.5rem 0 1.5rem;
+    color: #cd1818;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: #cd1818;
+    border-radius: 2px;
 }
 
 .flavor_forms {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.7;
     margin: 1rem 0;
+    color: #555;
 }
 
 .flavor_logo {
-    margin-top: 2rem;
+    margin-top: auto;
+    padding-top: 2rem;
     text-align: center;
 }
 
 .flavor_logo img {
-    max-width: 100%;
+    max-width: 150px;
     height: auto;
-    max-height: 180px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.08));
 }
 
 .flavor_logo img:hover {
-    transform: scale(1.05);
+    transform: scale(1.08) rotate(5deg);
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.15));
 }
 
-/* Layout para telas maiores */
-@media (min-width: 992px) {
-    main {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 2rem;
-        padding: 1rem;
-    }
-    
-    .box {
-        flex: 1;
-        min-width: 45%;
-        max-width: 600px;
+/* Responsividade */
+@media (max-width: 1200px) {
+    .box, .box2 {
         margin: 1rem;
-    }
-    
-    .box2 {
-        flex: 1;
-        min-width: 45%;
         max-width: 500px;
-        margin: 1rem;
-        margin-top: 3.5rem;
     }
 }
 
-/* Layout para telas menores */
+@media (max-width: 992px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .box, .box2 {
+        width: 100%;
+        max-width: 600px;
+        margin: 1rem auto;
+    }
+}
+
 @media (max-width: 768px) {
+    .box, .box2 {
+        padding: 1.5rem;
+    }
+    
     h1 {
         font-size: 1.75rem;
     }
     
-    .box, .box2 {
-        margin-bottom: 2rem;
-        padding: 1rem;
-    }
-    
-    #enviar {
-        width: 80%;
-    }
-    
-    .flavor_forms {
-        font-size: 1rem;
+    h2 {
+        font-size: 1.6rem;
     }
 }
 
 @media (max-width: 480px) {
+    main {
+        padding: 1rem 0.5rem;
+    }
+    
+    .box, .box2 {
+        padding: 1.2rem;
+        border-radius: 10px;
+    }
+    
     h1 {
         font-size: 1.5rem;
     }
     
     p {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
     
     input[type="text"], 
     input[type="date"],
     input[type="email"],
     textarea {
-        font-size: 0.9rem;
-        padding: 10px;
+        font-size: 0.95rem;
+        padding: 12px;
     }
     
     #enviar {
         font-size: 1rem;
-        padding: 10px;
+        padding: 12px 20px;
+        min-width: 180px;
+    }
+    
+    .checkbox-group {
+        flex-direction: column;
+        gap: 0.3rem;
     }
 }

@@ -1,11 +1,315 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Página Inicial | AutoIta{% endblock %}
+{% block title %}AutoIta Peças e Acessórios | Página Inicial{% endblock %}
 
 {% block style_links %}
 <link rel="stylesheet" href="{% static 'css/HomePageCSS.css' %}">
 <link rel="stylesheet" href="{% static 'temas/claro/claroHome.css' %}" id="temas">
+<style>
+  /* Modular, moderno e limpo */
+  .hero-section-modern {
+    position: relative;
+    min-height: 60vh;
+    background: linear-gradient(120deg, #cd1818 0%, #222629 100%), url('{% static 'imagens/autoita_banner_cortada.png' %}') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 60px 0 40px 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .hero-content-modern {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 32px 24px 40px 24px;
+    background: rgba(34,38,41,0.7);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+  .hero-logo {
+    width: 120px;
+    margin-bottom: 1.2rem;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  }
+  .hero-title {
+    font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+    color: #fff;
+    text-shadow: 0 2px 8px #0008;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: #f5f5f5;
+  }
+  .btn-hero {
+    display: inline-block;
+    background: #fff;
+    color: #cd1818;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 32px;
+    padding: 14px 36px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(205,24,24,0.08);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .btn-hero:hover {
+    background: #cd1818;
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+  }
+  .hero-links {
+    margin-top: 1.2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .hero-link {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .hero-link:hover {
+    background: #fff;
+    color: #cd1818;
+  }
+  /* Nossa História */
+  .about-modern {
+    background: #fff;
+    padding: 60px 0 40px 0;
+  }
+  .about-divider {
+    width: 60px;
+    height: 4px;
+    background: #cd1818;
+    margin: 0 auto 32px auto;
+    border-radius: 2px;
+  }
+  .about-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  .about-card {
+    background: #f5f5f5;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(205,24,24,0.04);
+    padding: 28px 24px;
+    max-width: 340px;
+    font-size: 1.08rem;
+    color: #333;
+    line-height: 1.7;
+    flex: 1 1 260px;
+    min-width: 220px;
+  }
+  .about-card.highlight {
+    border-left: 5px solid #cd1818;
+    background: #fff0f0;
+    font-weight: 600;
+  }
+  /* Diferenciais */
+  .features-modern {
+    background: #f8f7f4;
+    padding: 60px 0 40px 0;
+  }
+  .features-divider {
+    width: 60px;
+    height: 4px;
+    background: #cd1818;
+    margin: 0 auto 32px auto;
+    border-radius: 2px;
+  }
+  .features-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    margin-top: 32px;
+  }
+  .feature-card-modern {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(34,38,41,0.07);
+    padding: 32px 20px 28px 20px;
+    text-align: center;
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 260px;
+  }
+  .feature-card-modern:hover {
+    box-shadow: 0 8px 32px rgba(205,24,24,0.13);
+    transform: translateY(-4px) scale(1.03);
+  }
+  .feature-icon {
+    font-size: 2.5rem;
+    color: #cd1818;
+    margin-bottom: 1rem;
+    background: #f8f7f4;
+    border-radius: 50%;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(205,24,24,0.07);
+    display: inline-block;
+  }
+  .feature-card-modern h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #222629;
+  }
+  .feature-card-modern p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .btn-feature {
+    display: inline-block;
+    background: #cd1818;
+    color: #fff;
+    border-radius: 24px;
+    padding: 8px 22px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(205,24,24,0.08);
+  }
+  .btn-feature:hover {
+    background: #222629;
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+  }
+  /* CTA */
+  .cta-modern {
+    background: linear-gradient(120deg, #cd1818 0%, #222629 100%);
+    color: #fff;
+    text-align: center;
+    padding: 60px 0 50px 0;
+  }
+  .cta-modern h2 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .cta-modern p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #f5f5f5;
+  }
+  .cta-buttons-modern {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .btn-cta-map, .btn-cta-contact {
+    display: inline-block;
+    background: #fff;
+    color: #cd1818;
+    border-radius: 32px;
+    padding: 14px 36px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    margin: 0 8px;
+    box-shadow: 0 2px 8px rgba(205,24,24,0.08);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .btn-cta-map:hover, .btn-cta-contact:hover {
+    background: #cd1818;
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+  }
+  /* Footer Moderno */
+  .footer-modern {
+    background: #222629;
+    color: #fff;
+    padding: 36px 0 24px 0;
+    text-align: center;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-logo-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-logo {
+    width: 60px;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 2px 8px #0005);
+  }
+  .footer-company {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .footer-contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .footer-contact-block span {
+    margin-right: 8px;
+    color: #cd1818;
+  }
+  @media (max-width: 900px) {
+    .about-cards, .footer-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .features-grid-modern {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .hero-content-modern {
+      padding: 18px 8px 24px 8px;
+    }
+    .about-cards {
+      gap: 12px;
+    }
+    .features-grid-modern {
+      grid-template-columns: 1fr;
+    }
+    .footer-container {
+      gap: 18px;
+    }
+    .footer-logo {
+      width: 44px;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block theme_script %}
@@ -13,114 +317,110 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroHome.css' %}", "{% stati
 {% endblock %}
 
 {% block conteudo %}
-<div class="banner"></div>
-<div class="gradient1"></div>
-<div class="container">
-    <div class="autoita">
-        <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo AutoIta">
-        <h1><b>AutoIta</b></h1>
-        <h2><b>Soluções em Autopeças</b></h2>
+<section class="hero-section-modern">
+    <div class="hero-content-modern">
+        <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo AutoIta" class="hero-logo">
+        <h1 class="hero-title">AutoIta Peças e Acessórios</h1>
+        <p class="hero-subtitle">Confiança e tradição em autopeças para você e seu carro</p>
+        <a href="/catalogo" class="btn-hero">Conheça nosso catálogo</a>
+        <div class="hero-links">
+            <a href="#" class="hero-link"><span class="fa fa-user"></span> Minha Conta</a>
+            <a href="#" class="hero-link"><span class="fa fa-truck"></span> Rastrear Pedido</a>
+        </div>
     </div>
-</div>
+</section>
 
-<div class="sobre">
-    <p>
-        <b>
-            A Auto Ita Peças foi fundada em xxx, com o trabalho de seu fundador, Diógenes Floriano, o qual possuía um trabalho árduo de entregar para seu cliente sempre as melhores peças para seu veículo, tornando ele um referencial na cidade e região. <br>
-            Passada uma geração, a Auto Ita tem sua gestão sendo realizada pela família a qual busca manter-se forte nos princípios de um bom negócio, como transparência, honestidade e fidelidade. <br>
-            A loja está buscando modernizar seus negócios acompanhando seu cliente nas novas dinâmicas ofertadas pelo mercado é pensando nisso nós da Auto Ita trazemos esse sistema web para que cada vez mais as pessoas conheçam nosso trabalho e possam adquirir nossos produtos e serviços com segurança e comodidade. <br>
-            Somos especialistas em break system, suspensão, motor, além de ter peças genuínas e originais para todas as categorias de veículos, trabalhando com as principais marcas, qualidade e garantias para você cliente.
-        </b>
-    </p>
-</div>
+<section class="about-modern">
+    <div class="container">
+        <h2 class="section-title">Nossa História</h2>
+        <div class="about-divider"></div>
+        <div class="about-cards">
+            <div class="about-card">
+                <p>
+                    A Auto Ita Peças foi fundada com o trabalho árduo de seu fundador, Diógenes Floriano, que sempre priorizou entregar para seus clientes as melhores peças automotivas, tornando-se um referencial na cidade e região.
+                </p>
+            </div>
+            <div class="about-card">
+                <p>
+                    Passada uma geração, a Auto Ita mantém sua gestão familiar, preservando os princípios de transparência, honestidade e fidelidade. Buscamos modernizar nossos negócios para acompanhar as novas dinâmicas do mercado e oferecer produtos e serviços com segurança e comodidade.
+                </p>
+            </div>
+            <div class="about-card highlight">
+                <p>
+                    Somos especialistas em break system, suspensão, motor, e trabalhamos com peças genuínas e originais para todas as categorias de veículos, oferecendo as principais marcas, qualidade e garantia para você cliente.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="content">
-    <div class="col">
-        <div class="row">
-            <div>
-                <div class="Titulo">
-                    <b>Catálogo de peças</b>
-                </div>
-                <div class="centerCol">
-                    <div class="foto">
-                        <img src="{% static 'imagens/homepageimg1.jpg' %}" alt="Foto do mecânico escolhendo uma peça na gôndola." width="300px">
-                        <div class="btn">
-                            <a href="/catalogo"><button class="btn1">Veja nosso catálogo</button></a>
-                        </div>
-                    </div>
-                </div>
+<section class="features-modern">
+    <div class="container">
+        <h2 class="section-title">Nossos Diferenciais</h2>
+        <div class="features-divider"></div>
+        <div class="features-grid-modern">
+            <div class="feature-card-modern">
+                <span class="feature-icon fa fa-th-list"></span>
+                <h3>Catálogo Completo</h3>
+                <p>Encontre facilmente a peça ideal para seu veículo em nosso catálogo organizado.</p>
+                <a href="/catalogo" class="btn-feature">Saiba mais</a>
             </div>
-        </div>
-        <div class="row">
-            <div>
-                <div class="Titulo">
-                    <b>Trabalhe Conosco</b>
-                </div>
-                <div class="centerCol">
-                    <div class="foto">
-                        <img src="{% static 'imagens/homepageimg6.jpg' %}" alt="Mulher ao telefone em seu trabalho." width="300px">
-                        <div class="btn">
-                            <a href="/forms"><button class="btn1">Envie-nos seu CV</button></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="feature-card-modern">
+                <span class="feature-icon fa fa-users"></span>
+                <h3>Equipe Especializada</h3>
+                <p>Profissionais prontos para oferecer o melhor atendimento e orientação.</p>
+                <a href="/contato" class="btn-feature">Saiba mais</a>
             </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
-            <div>
-                <div class="Titulo">
-                    <b>Nossa equipe</b>
-                </div>
-                <div class="centerCol">
-                    <div class="foto">
-                        <img src="{% static 'imagens/homepageimg2.jpg' %}" alt="Dois homens apontando para uma prancheta analisando algo" width="300px">
-                    </div>
-                </div>
+            <div class="feature-card-modern">
+                <span class="feature-icon fa fa-store"></span>
+                <h3>Loja Física</h3>
+                <p>Visite nossa loja e conheça nosso amplo estoque de peças e acessórios automotivos.</p>
+                <a href="#" class="btn-feature">Saiba mais</a>
             </div>
-        </div>
-        <div class="row">
-            <div>
-                <div class="Titulo">
-                    <b>Entre em contato</b>
-                </div>
-                <div class="centerCol">
-                    <div class="foto">
-                        <img src="{% static 'imagens/homepageimg3.jpg' %}" alt="Homem ao telefone em seu trabalho." width="300px">
-                        <div class="btn">
-                            <a href="/contato"><button class="btn1">Contatos</button></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="feature-card-modern">
+                <span class="feature-icon fa fa-tags"></span>
+                <h3>Promoções Exclusivas</h3>
+                <p>Ofertas especiais em peças e acessórios automotivos.</p>
+                <a href="/catalogo" class="btn-feature">Saiba mais</a>
+            </div>
+            <div class="feature-card-modern">
+                <span class="feature-icon fa fa-headset"></span>
+                <h3>Atendimento Personalizado</h3>
+                <p>Estamos disponíveis para esclarecer suas dúvidas e auxiliar na escolha certa.</p>
+                <a href="/contato" class="btn-feature">Saiba mais</a>
+            </div>
+            <div class="feature-card-modern">
+                <span class="feature-icon fa fa-briefcase"></span>
+                <h3>Trabalhe Conosco</h3>
+                <p>Faça parte da nossa equipe e cresça profissionalmente no setor automotivo.</p>
+                <a href="/forms" class="btn-feature">Saiba mais</a>
             </div>
         </div>
     </div>
-    <div class="col">
-        <div class="row">
-            <div>
-                <div class="Titulo">
-                    <b>Conheça nossa Loja</b>
-                </div>
-                <div class="centerCol">
-                    <div class="foto">
-                        <img src="{% static 'imagens/homepageimg4.jpg' %}" alt="Entrada da loja." width="300px">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                <div class="Titulo">
-                    <b>Confira nossas promoções</b>
-                </div>
-                <div class="centerCol">
-                    <div class="foto">
-                        <img src="{% static 'imagens/homepageimg5.jpg' %}" alt="Homem ao telefone em seu trabalho." width="300px">
-                    </div>
-                </div>
-            </div>
+</section>
+
+<section class="cta-modern">
+    <div class="container">
+        <h2>Precisando de peças automotivas de qualidade?</h2>
+        <p>Visite nossa loja física ou navegue pelo nosso catálogo online.</p>
+        <div class="cta-buttons-modern">
+            <a href="https://maps.google.com/?q=Rua+Frei+Caneca+Nº2455,+Centro,+Itararé+SP" target="_blank" class="btn-cta-map"><span class="fa fa-map-marker"></span> Ver no mapa</a>
+            <a href="/contato" class="btn-cta-contact"><span class="fa fa-envelope"></span> Fale conosco</a>
         </div>
     </div>
-</div>
+</section>
+
+<footer class="footer-modern">
+    <div class="footer-container">
+        <div class="footer-logo-block">
+            <img src="{% static 'imagens/logo_autoita-cortada.png' %}" alt="Logo AutoIta" class="footer-logo">
+            <span class="footer-company">AutoIta Peças e Acessórios</span>
+        </div>
+        <div class="footer-contact-block">
+            <div><span class="fa fa-map-marker"></span> Rua Frei Caneca Nº2455, Centro, Itararé SP</div>
+            <div><span class="fa fa-phone"></span> (15) 3531-2467 | (15) 99690-7899</div>
+            <div><span class="fa fa-envelope"></span> autoitapecas@gmail.com</div>
+        </div>
+    </div>
+</footer>
 {% endblock %}

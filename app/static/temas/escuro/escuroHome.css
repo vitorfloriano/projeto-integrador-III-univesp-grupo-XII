@@ -14,7 +14,7 @@ ul {
 }
 
 .container :hover {
-    background-color: #282622;
+    background-color: transparent;
 }
 
 li a {
@@ -32,17 +32,35 @@ li a:hover {
 }
 
 /* LOCALIZADO */
-
-.caixa_distratora {
-    background-color: #282828;
+:root {
+    --bg-alt: #1e1e1e;
+    --card-bg: #252525;
+    --text-color: #F8F7F4;
+    --text-secondary: #cccccc;
 }
 
-#botao_form {
-    background-color: #F8F7F4;
-    color: #282828;
+.about-section {
+    background-color: #1e1e1e;
 }
 
-#botao_form:hover{
-    background-color: #e43023;
-    color: #F8F7F4;
+.feature-card {
+    background-color: #252525;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-secondary {
+    color: #cd1818;
+    border-color: #cd1818;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(205, 24, 24, 0.1);
+}
+
+.highlight {
+    border-color: #cd1818;
+}
+
+.divider {
+    background-color: #cd1818;
 }
