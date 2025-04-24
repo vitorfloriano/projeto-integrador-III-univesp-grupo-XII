@@ -29,12 +29,10 @@ jobs:
           
       - name: Run migrations
         run: |
-          cd PI_2
           python manage.py migrate
           
       - name: Run tests
         run: |
-          cd PI_2
           python manage.py test
 
   deploy:
@@ -60,14 +58,12 @@ jobs:
           
       - name: Collect static files
         run: |
-          cd PI_2
           python manage.py collectstatic --noinput
         env:
           DEBUG: 'False'
           
       - name: Run migrations
         run: |
-          cd PI_2
           python manage.py migrate
           
       - name: Prepare deployment scripts
