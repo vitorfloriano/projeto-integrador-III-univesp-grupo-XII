@@ -61,11 +61,20 @@ jobs:
           chmod +x deployment/azure_startup.sh
           chmod +x startup.sh
           
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
+      - name: Create app settings file
+        run: |
+          cat > .env << 'EOL'
+          DJANGO_ENV=prod
+          DJANGO_SETTINGS_MODULE=core.settings.prod
+          SCM_DO_BUILD_DURING_DEPLOYMENT=true
+          WEBSITE_WEBDEPLOY_USE_SCM=false
+          EOL
+          
+      # Create startup.txt for Linux App Service
+      - name: Create startup command file for Linux App Service
+        run: |
+          echo "gunicorn core.wsgi:application --bind=0.0.0.0:8000 --workers=3 --timeout=120" > startup.txt
+          
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -74,9 +83,3 @@ jobs:
           slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
-
-      - name: Configure App Settings
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az webapp config appsettings set --name autoItaApp --resource-group <YourResourceGroupName> --settings DJANGO_ENV=prod DJANGO_SETTINGS_MODULE=core.settings.prod SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITE_WEBDEPLOY_USE_SCM=false
