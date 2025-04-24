@@ -1,6 +1,5 @@
 #!/bin/bash
 
-cd /workspace/PI_2
 echo "Running Django migrations..."
 python manage.py migrate
 

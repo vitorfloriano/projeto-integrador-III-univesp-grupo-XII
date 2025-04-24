@@ -11,14 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-# Set the appropriate environment based on Azure detection
-if 'WEBSITE_HOSTNAME' in os.environ:
-    print("Azure App Service environment detected, setting DJANGO_ENV to 'prod'")
-    os.environ.setdefault('DJANGO_ENV', 'prod')
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.prod')
-else:
-    print("Local environment detected, setting DJANGO_ENV to 'dev'")
-    os.environ.setdefault('DJANGO_ENV', 'dev')
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.dev')
+os.environ.setdefault('DJANGO_ENV', 'dev')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.dev')
 
 application = get_wsgi_application()

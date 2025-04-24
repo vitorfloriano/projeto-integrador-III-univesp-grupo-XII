@@ -2,18 +2,6 @@ from .base import *
 
 # Production settings
 DEBUG = False
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'autoitaapp.azurewebsites.net').split(',')
-
-# CORS settings for production
-CORS_ALLOWED_ORIGINS = [
-    'https://autoitaapp.azurewebsites.net',
-]
-
-# CSRF Trusted Origins
-CSRF_TRUSTED_ORIGINS = [
-    'https://autoitaapp.azurewebsites.net',
-    f'https://{os.environ.get("WEBSITE_HOSTNAME", "")}',
-]
 
 # Security settings for production
 SESSION_COOKIE_SECURE = True
@@ -26,19 +14,11 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Production database - PostgreSQL
+# Production database - SQLite for local development
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': os.environ.get('DATABASE_PORT', '5432'),
-        'CONN_MAX_AGE': 60,
-        'OPTIONS': {
-            'sslmode': os.environ.get('DATABASE_SSL_MODE', 'prefer'),
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

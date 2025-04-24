@@ -9,25 +9,14 @@ Function views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.http import HttpResponse
 # Temporarily commenting out this import to fix the startup issue
 # from rest_framework.documentation import include_docs_urls
-
-def health_check(request):
-    """
-    Health check endpoint for Azure App Service monitoring.
-    Returns a 200 OK response when the application is healthy.
-    """
-    return HttpResponse("OK", status=200)
 
 urlpatterns = [
     path('AutoItaAdmin/', admin.site.urls),
@@ -36,7 +25,6 @@ urlpatterns = [
     path('Contato', include ('app.urls')),
     path('HomePage', include ('app.urls')),
     path('api/', include('app.api_urls')),
-    path('health/', health_check, name='health_check'),
     # Temporarily disabling API docs until we fix the coreapi issue
     # path('api-docs/', include_docs_urls(title='Autoita API Documentation')),
 ]
