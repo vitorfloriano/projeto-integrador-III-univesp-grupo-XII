@@ -105,10 +105,8 @@ tmp/
 backup_*/
 
 # Docker files that are no longer needed
-# Uncomment if you want to remove these from versioning
-# Dockerfile
-# docker-compose.yml
-# deployment/docker_startup.sh
+Dockerfile
+docker-compose.yml
 
 # Cleanup scripts
 cleanup.sh
