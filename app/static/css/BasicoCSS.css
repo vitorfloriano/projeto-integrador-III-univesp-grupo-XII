@@ -1,3 +1,5 @@
+@import url('common.css');
+
 body {
     margin: 0;
     padding: 0;
@@ -127,12 +129,13 @@ ul.menu {
     text-align: left;
   }
 
+/* Removed margin-top for main element */
+
 main {
     flex: 1;
     width: 100%;
     box-sizing: border-box;
     padding: 0 15px;
-    margin-top: 80px;
 }
 
 /* Media query para menu responsivo */

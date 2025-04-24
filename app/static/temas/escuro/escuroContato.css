@@ -10,7 +10,7 @@ h1, h2, h3 {
 }
 
 ul {
-    background: #F8F7F4;
+    background: #121212;
 }
 
 .container :hover {
@@ -45,13 +45,23 @@ input[type="text"]:hover, input[type="email"]:hover {
 }
 
 input[type="submit"] {
-    background-color: #F8F7F4;
-    color: #282828;
+    background-color: #e85a4f;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 1.5rem auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 input[type="submit"]:hover {
-    background-color: #e43023;
-    color: #F8F7F4;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 .fa-mobile,

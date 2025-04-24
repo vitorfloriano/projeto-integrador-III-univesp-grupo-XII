@@ -1,3 +1,5 @@
+@import url('common.css');
+
 /*Caixa do Formulário*/
 
 .box {
@@ -58,28 +60,6 @@ textarea:focus {
 
 input[type="radio"] {
     margin: 10px;
-}
-
-/*Botão de envio*/
-
-#enviar {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 1.5rem auto;
-    border-radius: 50px;
-    border: none;
-    transition: all 0.3s ease;
-    display: block;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-#enviar:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 /*Caixa à Direita, e seu flavor text*/
