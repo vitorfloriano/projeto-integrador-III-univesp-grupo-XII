@@ -11,12 +11,7 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-# Set the appropriate environment based on Azure detection
-if 'WEBSITE_HOSTNAME' in os.environ:
-    os.environ.setdefault('DJANGO_ENV', 'prod')
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.prod')
-else:
-    os.environ.setdefault('DJANGO_ENV', 'dev')
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.dev')
+os.environ.setdefault('DJANGO_ENV', 'dev')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.dev')
 
 application = get_asgi_application()

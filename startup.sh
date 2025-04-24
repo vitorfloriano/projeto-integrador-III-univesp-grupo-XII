@@ -29,12 +29,6 @@ else
     PYTHON_CMD="python"
 fi
 
-# Install gunicorn if not available
-if ! command -v gunicorn &> /dev/null; then
-    log_info "Installing Gunicorn..."
-    pip install gunicorn || log_error "Failed to install Gunicorn"
-fi
-
 # Define o diretório da aplicação
 APP_DIR=$(pwd)
 cd $APP_DIR
@@ -48,18 +42,9 @@ log_info "Aplicando migrações..."
 $PYTHON_CMD manage.py migrate --noinput || log_error "Failed to apply migrations"
 
 # Set Django settings module based on environment
-if [ "$DJANGO_ENV" = "prod" ]; then
-  export DJANGO_SETTINGS_MODULE="core.settings.prod"
-else
-  export DJANGO_SETTINGS_MODULE="core.settings.dev"
-fi
+export DJANGO_SETTINGS_MODULE="core.settings.dev"
 log_info "DJANGO_SETTINGS_MODULE set to: $DJANGO_SETTINGS_MODULE"
 
-# Inicie o servidor baseado no ambiente
-if [ "$DJANGO_ENV" = "dev" ]; then
-  log_info "Iniciando servidor de desenvolvimento Django..."
-  $PYTHON_CMD manage.py runserver 0.0.0.0:${PORT:-8000}
-else
-  log_info "Iniciando servidor Gunicorn para produção..."
-  gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers ${GUNICORN_WORKERS:-3} --timeout ${GUNICORN_TIMEOUT:-120}
-fi
+# Inicie o servidor de desenvolvimento Django
+log_info "Iniciando servidor de desenvolvimento Django..."
+$PYTHON_CMD manage.py runserver 0.0.0.0:${PORT:-8000}
