@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Trabalhe Conosco | AutoIta{% endblock %}
+
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'css/FormsCSS.css' %}">
+<link rel="stylesheet" href="{% static 'temas/claro/claroForms.css' %}" id="temas">
+{% endblock %}
+
+{% block theme_script %}
+setupThemeToggle("#temas", "{% static 'temas/claro/claroForms.css' %}", "{% static 'temas/escuro/escuroForms.css' %}");
+{% endblock %}
+
+{% block conteudo %}
+    <!-- Mensagens de sucesso/erro -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="box">
+        <form action="{% url 'formulario' %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <h1><b>Cadastro Concorrente à Vaga</b></h1>
+                
+                {% for field in form %}
+                    <p><b>{{ field.label_tag }}</b></p>
+                    {% if field.errors %}
+                        <div class="error-message">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                    {{ field }}
+                {% endfor %}
+                
+                <br><br>
+                <input type="submit" name="enviar" id="enviar" value="Enviar">
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="box2">
+        <h1> Nossos Valores </h1>
+        <div class="flavor_forms"> 
+            Na AutoIta, somos uma loja de peças e acessórios automotivos, e também uma empresa familiar, valorizamos a excelência no atendimento, a qualidade dos produtos e o respeito mútuo.
+            <br>   Esperamos que nossos funcionários sejam dedicados ao seu trabalho, proativos e comprometidos, buscando sempre superar as expectativas dos clientes. Priorizamos o trabalho em equipe, a comunicação aberta e um ambiente de trabalho saudável.
+            <br>   Como uma empresa familiar, prezamos pela tradição, por relações sólidas e um ambiente harmonioso, valorizamos ética, transparência e dedicação em tudo o que fazemos, assim buscamos excelência e crescimento contínuo. Se junte a nossa equipe e podemos alcançar novos patamares na AutoIta!
+
+            <div class="flavor_logo">
+                <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo_Autoita">
+            </div>
+        </div>
+    </div>
+{% endblock %}

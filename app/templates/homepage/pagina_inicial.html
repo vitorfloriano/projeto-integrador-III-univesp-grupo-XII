@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Página Inicial | AutoIta{% endblock %}
+
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'css/HomePageCSS.css' %}">
+<link rel="stylesheet" href="{% static 'temas/claro/claroHome.css' %}" id="temas">
+{% endblock %}
+
+{% block theme_script %}
+setupThemeToggle("#temas", "{% static 'temas/claro/claroHome.css' %}", "{% static 'temas/escuro/escuroHome.css' %}");
+{% endblock %}
+
+{% block conteudo %}
+<div class="banner"></div>
+<div class="gradient1"></div>
+<div class="container">
+    <div class="autoita">
+        <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo AutoIta">
+        <h1><b>AutoIta</b></h1>
+        <h2><b>Soluções em Autopeças</b></h2>
+    </div>
+</div>
+
+<div class="sobre">
+    <p>
+        <b>
+            A Auto Ita Peças foi fundada em xxx, com o trabalho de seu fundador, Diógenes Floriano, o qual possuía um trabalho árduo de entregar para seu cliente sempre as melhores peças para seu veículo, tornando ele um referencial na cidade e região. <br>
+            Passada uma geração, a Auto Ita tem sua gestão sendo realizada pela família a qual busca manter-se forte nos princípios de um bom negócio, como transparência, honestidade e fidelidade. <br>
+            A loja está buscando modernizar seus negócios acompanhando seu cliente nas novas dinâmicas ofertadas pelo mercado é pensando nisso nós da Auto Ita trazemos esse sistema web para que cada vez mais as pessoas conheçam nosso trabalho e possam adquirir nossos produtos e serviços com segurança e comodidade. <br>
+            Somos especialistas em break system, suspensão, motor, além de ter peças genuínas e originais para todas as categorias de veículos, trabalhando com as principais marcas, qualidade e garantias para você cliente.
+        </b>
+    </p>
+</div>
+
+<div class="content">
+    <div class="col">
+        <div class="row">
+            <div>
+                <div class="Titulo">
+                    <b>Catálogo de peças</b>
+                </div>
+                <div class="centerCol">
+                    <div class="foto">
+                        <img src="{% static 'imagens/homepageimg1.jpg' %}" alt="Foto do mecânico escolhendo uma peça na gôndola." width="300px">
+                        <div class="btn">
+                            <a href="/catalogo"><button class="btn1">Veja nosso catálogo</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="Titulo">
+                    <b>Trabalhe Conosco</b>
+                </div>
+                <div class="centerCol">
+                    <div class="foto">
+                        <img src="{% static 'imagens/homepageimg6.jpg' %}" alt="Mulher ao telefone em seu trabalho." width="300px">
+                        <div class="btn">
+                            <a href="/forms"><button class="btn1">Envie-nos seu CV</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div>
+                <div class="Titulo">
+                    <b>Nossa equipe</b>
+                </div>
+                <div class="centerCol">
+                    <div class="foto">
+                        <img src="{% static 'imagens/homepageimg2.jpg' %}" alt="Dois homens apontando para uma prancheta analisando algo" width="300px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="Titulo">
+                    <b>Entre em contato</b>
+                </div>
+                <div class="centerCol">
+                    <div class="foto">
+                        <img src="{% static 'imagens/homepageimg3.jpg' %}" alt="Homem ao telefone em seu trabalho." width="300px">
+                        <div class="btn">
+                            <a href="/contato"><button class="btn1">Contatos</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div>
+                <div class="Titulo">
+                    <b>Conheça nossa Loja</b>
+                </div>
+                <div class="centerCol">
+                    <div class="foto">
+                        <img src="{% static 'imagens/homepageimg4.jpg' %}" alt="Entrada da loja." width="300px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="Titulo">
+                    <b>Confira nossas promoções</b>
+                </div>
+                <div class="centerCol">
+                    <div class="foto">
+                        <img src="{% static 'imagens/homepageimg5.jpg' %}" alt="Homem ao telefone em seu trabalho." width="300px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

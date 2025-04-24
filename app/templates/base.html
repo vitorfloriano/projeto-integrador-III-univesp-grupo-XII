@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Página Inicial - Auto Ita{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'admin-interface/favicon/logo_autoita-cortada.png' %}">
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="{% static 'css/BasicoCSS.css' %}">
+    {% block style_links %}{% endblock %}
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css"
+        integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css"
+        integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
+        
+    <!-- Mensagens de alerta estilo -->
+    <style>
+        .messages {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu de navegação -->
+    <nav>
+        <ul class="menu">
+            <div class="container img">
+               <a href="/homepage"> 
+                   <img src="{% static 'imagens/logo_autoita-cortada.png' %}" alt="Aba de Navegação"> 
+               </a>
+            </div>
+            <li><a href="/homepage"><b><span class="fa fa-home"></span><span>Página Inicial</span></b></a></li>
+            <li><a href="/catalogo"><b><span class="fa fa-list"></span><span>Catálogo de Peças</span></b></a></li>
+            <li><a href="/forms"><b><span class="fa fa-search"></span><span>Trabalhe Conosco</span></b></a></li>
+            <li><a href="/contato"><b><span class="fa fa-phone"></span><span>Contato</span></b></a></li>
+            <li><a href="{% url 'admin:index' %}"><b><span>Admin</span></b></a></li>
+            <!-- Botão Admin para desenvolvimento -->
+        </ul>
+    </nav>
+    
+    <!-- Botão para alternar tema que será controlado pelos templates filhos -->
+    {% block theme_button %}
+    <button class="muda_tema">Mudar Tema</button>
+    {% endblock %}
+    
+    <!-- Conteúdo dinâmico -->
+    {% block conteudo %}
+    {% endblock %}
+
+    <!-- Rodapé -->
+    <footer class="footer_banner">
+        <div class="gradient2"></div>
+        <img src="{% static 'imagens/autoita_banner_cortada.png' %}" alt="Fale com a Auto Ita! Número (15)3531-2467 ou (15)99690-7899, também estamos disponíveis no e-mail autoitapecas@gmail.com, e nossa loja fica na Rua Frei Caneca Nº2455, no bairro Centro, na cidade de Itararé, Estado de São Paulo">
+        <div class="texto_footer">
+            <pre>
+Fale Conosco!
+
+(15)3531-2467
+(15)99690-7899
+
+autoitapecas@gmail.com
+
+Rua Frei Caneca Nº2455, Centro, Itararé SP
+            </pre>
+        </div>
+    </footer>
+    
+    <!-- Centralizado script para controle de temas -->
+    <script>
+        // Função para configurar a alternância de tema
+        function setupThemeToggle(themeSelector, lightTheme, darkTheme) {
+            const botao = document.querySelector(".muda_tema");
+            const tema = document.querySelector(themeSelector);
+            
+            if (!botao || !tema) return;
+            
+            function applyInitialTheme() {
+                const currentTheme = localStorage.getItem("theme");
+                if (currentTheme === "dark") {
+                    tema.href = darkTheme;
+                } else {
+                    tema.href = lightTheme;
+                }
+            }
+            
+            applyInitialTheme();
+            
+            botao.addEventListener("click", function() {
+                if (tema.getAttribute("href") == lightTheme) {
+                    tema.href = darkTheme;
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    tema.href = lightTheme;
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        }
+        
+        // Executa o script específico da página
+        document.addEventListener('DOMContentLoaded', function() {
+            {% block theme_script %}{% endblock %}
+        });
+    </script>
+    
+    <!-- Scripts adicionais por página -->
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

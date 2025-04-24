@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Catálogo de Peças | AutoIta{% endblock %}
+
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'css/CatalogCSS.css' %}">
+<link rel="stylesheet" href="{% static 'temas/claro/claroCatalog.css' %}" id="temas">
+{% endblock %}
+
+{% block theme_script %}
+setupThemeToggle("#temas", "{% static 'temas/claro/claroCatalog.css' %}", "{% static 'temas/escuro/escuroCatalog.css' %}");
+{% endblock %}
+
+{% block conteudo %}
+<div class="catalog-container">
+    <h1>Catálogo de Peças Automotivas</h1>
+
+    <div class="controls-container">
+        <form id="filter-form" method="GET" action="{% url 'catalogo' %}">
+            <div class="filters">
+                <div class="filter-item">
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria" name="categoria" class="filter-select">
+                        <option value="">Todas as categorias</option>
+                        {% for categoria in categorias %}
+                        <option value="{{ categoria.id_categoria }}" {% if selected_categoria == categoria.id_categoria|stringformat:"i" %}selected{% endif %}>{{ categoria.nome_categoria }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-item">
+                    <label for="marca">Marca:</label>
+                    <select id="marca" name="marca" class="filter-select">
+                        <option value="">Todas as marcas</option>
+                        {% for marca in marcas %}
+                        <option value="{{ marca.id_marca }}" {% if selected_marca == marca.id_marca|stringformat:"i" %}selected{% endif %}>{{ marca.nome_marca }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="search-bar">
+                    <input type="text" id="search-input" name="search" placeholder="Buscar peças..." value="{{ search_term }}">
+                </div>
+
+                <button type="submit" class="btn btn-filter">Aplicar filtros</button>
+                <a href="{% url 'catalogo' %}" class="btn btn-reset">Limpar filtros</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="produtos" id="produtos-container">
+        {% for produto in produtos %}
+        <div class="produto-card">
+            <h3>{{ produto.nome }}</h3>
+            <p>{{ produto.descricao|truncatechars:100 }}</p>
+            <p>Categoria: {{ produto.id_categoria.nome_categoria }}</p>
+            <p>Marca: {{ produto.id_marca.nome_marca }}</p>
+            <p class="preco">Preço: R$ {{ produto.preco }}</p>
+            <p class="estoque {% if produto.quantidade_estoque < 5 %}estoque-baixo{% endif %}">
+                Estoque: {{ produto.quantidade_estoque }} unidades
+            </p>
+        </div>
+        {% empty %}
+        <p class="no-products-message">Nenhum produto encontrado.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ajusta a altura dos cards para ficarem uniformes
+        const cards = document.querySelectorAll('.produto-card');
+        let maxHeight = 0;
+        
+        cards.forEach(card => {
+            const height = card.offsetHeight;
+            if (height > maxHeight) {
+                maxHeight = height;
+            }
+        });
+        
+        cards.forEach(card => {
+            card.style.minHeight = `${maxHeight}px`;
+        });
+        
+        // Verifica se filtros ativos para destacá-los visualmente
+        const categoria = document.getElementById('categoria');
+        const marca = document.getElementById('marca');
+        const searchInput = document.getElementById('search-input');
+        
+        if (categoria.value || marca.value || searchInput.value) {
+            document.querySelector('.controls-container').classList.add('active-filter');
+        }
+    });
+</script>
+{% endblock %}

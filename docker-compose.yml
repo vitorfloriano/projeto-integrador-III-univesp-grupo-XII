@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DJANGO_ENV=production
+      - DJANGO_ENV=${DJANGO_ENV:-dev}
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-django-insecure-replace-in-production}
       - DATABASE_ENGINE=${DATABASE_ENGINE:-sqlite}
       # Configurações para PostgreSQL (se DATABASE_ENGINE=postgresql)
@@ -18,13 +18,15 @@ services:
       - DATABASE_PORT=${DATABASE_PORT:-5432}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1}
     volumes:
-      - sqlite_data:/app/PI_2/  # Para persistir o banco SQLite
+      - sqlite_data:/app/  # Para persistir o banco SQLite na raiz do projeto
+      - ./static:/app/static  # Mapear diretório estático
+      - ./app:/app/app  # Mapear código do app para desenvolvimento
     depends_on:
       - db
     networks:
       - app-network
 
-  # Serviço de banco de dados PostgreSQL (opcional - ativar se DATABASE_ENGINE=postgresql)
+  # Serviço de banco de dados PostgreSQL
   db:
     image: postgres:16
     restart: always
@@ -34,11 +36,13 @@ services:
       - POSTGRES_DB=${DATABASE_NAME:-dbpi}
       - POSTGRES_USER=${DATABASE_USER:-postgres}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-avocado123}
+    ports:
+      - "5432:5432"  # Expondo a porta para debugging
     networks:
       - app-network
-    # Remova o comentário abaixo se estiver usando SQLite para desativar o PostgreSQL
-    # profiles:
-    #   - postgresql
+    # Condicional: ativa apenas quando usando PostgreSQL
+    profiles:
+      - ${DB_PROFILE:-all}
 
 networks:
   app-network:

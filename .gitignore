@@ -2,9 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*/__pycache__/
-app/__pycache__/
-PI_2/__pycache__/
 
 # C extensions
 *.so
@@ -27,6 +24,29 @@ wheels/
 .installed.cfg
 *.egg
 
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Django stuff
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff
+instance/
+.webassets-cache
+
 # Environments
 .env
 .venv
@@ -37,22 +57,22 @@ env.bak/
 venv.bak/
 antenv/
 
-# Django stuff
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-*/migrations/*.py
-!*/migrations/__init__.py
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PyCharm
+.idea/
 
 # Azure stuff
-.python_packages/
-.vscode/
-.idea/
 __azurite*
 __blobstorage*
 __queuestorage*
 __tablestorage*
+.python_packages/
 
 # Static files collected
 staticfiles/
@@ -65,35 +85,30 @@ static_collected/
 .env.test
 .env.production
 
-# Arquivos de configuração e ambiente
-.env.*
-*.env
+# OS specific files
 .DS_Store
+Thumbs.db
+desktop.ini
 
-# Arquivos de IDE/editores
-*.swp
-*.swo
-*~
-.history/
-
-# Arquivos temporários
+# Temporary files
 .tmp/
 .temp/
 *.pot
 logs/
 tmp/
 
-# Arquivos de cache
-.cache/
-.pytest_cache/
-.coverage
-htmlcov/
+# Deployment scripts - DO NOT IGNORE THESE
+# startup.sh
+# deployment/azure_startup.sh
 
 # Backup directories and redundant files
 backup_*/
-app.py
-wsgi_app.py
-startup.txt
-startup.sh
-start.sh
-Scripts_Database/
+
+# Docker files that are no longer needed
+# Uncomment if you want to remove these from versioning
+# Dockerfile
+# docker-compose.yml
+# deployment/docker_startup.sh
+
+# Cleanup scripts
+cleanup.sh

@@ -1,27 +1,31 @@
 FROM python:3.12-slim
 
-# Defina variáveis de ambiente
+# Variáveis de ambiente
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV DJANGO_ENV=dev
 
-# Instale pacotes necessários
+# Instalar pacotes necessários
 RUN apt-get update && apt-get install -y netcat-traditional && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Cria e define o diretório de trabalho
+# Criar e definir o diretório de trabalho
 WORKDIR /app
 
-# Copie os arquivos de requisitos primeiro para aproveitar o cache do Docker
+# Copiar os arquivos de requisitos primeiro para aproveitar o cache do Docker
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt gunicorn
 
-# Copie o projeto
+# Copiar o projeto
 COPY . /app/
 
-# Configurar script de inicialização
+# Garantir que o script de inicialização é executável
 RUN chmod +x /app/deployment/docker_startup.sh
 
-# Exponha a porta que o aplicativo utilizará
+# Criar diretório para arquivos estáticos coletados
+RUN mkdir -p /app/staticfiles
+
+# Expor a porta que a aplicação utilizará
 EXPOSE 8000
 
 # Comando para iniciar a aplicação

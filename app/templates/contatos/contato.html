@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contato | AutoIta{% endblock %}
+
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'css/ContatoCSS.css' %}">
+<link rel="stylesheet" href="{% static 'temas/claro/claroContato.css' %}" id="temas">
+{% endblock %}
+
+{% block theme_script %}
+setupThemeToggle("#temas", "{% static 'temas/claro/claroContato.css' %}", "{% static 'temas/escuro/escuroContato.css' %}");
+{% endblock %}
+
+{% block conteudo %}
+<main>
+    <div class="container1">
+        <h2>Entre em Contato</h2>
+        <h6>Deixe um recado!</h6>
+        
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <form action="{% url 'contato' %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                {% for field in form %}
+                    <div class="form-group">
+                        {% if field.errors %}
+                            <div class="error-message">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <input type="submit" value="Enviar">
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="container2">
+        <div>
+            <i class="fas fa-mobile"></i>
+            <span>(15) 3531-2467<br>(15) 99690-7899</span>
+        </div>
+
+        <div>
+            <i class="fas fa-map-marker"></i>
+            <span>Rua Frei Caneca, 2455<br>Centro, Itararé - SP</span>
+        </div>
+
+        <div>
+            <i class="fas fa-envelope"></i>
+            <span>autoitapecas@gmail.com</span>
+        </div>
+
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3627.9962879912526!2d-49.326648!3d-24.113144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c3b293dde44727%3A0xe11fb8a328fd5e42!2sR.+Frei+Caneca%2C+2455+-+Centro%2C+Itarar%C3%A9+-+SP%2C+18460-000!5e0!3m2!1spt-BR!2sbr!4v1569517781172!5m2!1spt-BR!2sbr" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</main>
+{% endblock %}
