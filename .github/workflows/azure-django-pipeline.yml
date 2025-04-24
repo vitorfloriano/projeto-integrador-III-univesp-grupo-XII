@@ -56,19 +56,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           
-      - name: Collect static files
-        run: |
-          python manage.py collectstatic --noinput
-        env:
-          DEBUG: 'False'
-          
-      - name: Run migrations
-        run: |
-          python manage.py migrate
-          
       - name: Prepare deployment scripts
         run: |
           chmod +x deployment/azure_startup.sh
+          
+      - name: Add SCM_DO_BUILD_DURING_DEPLOYMENT flag
+        run: |
+          echo "SCM_DO_BUILD_DURING_DEPLOYMENT=true" >> .env
           
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
@@ -77,3 +71,4 @@ jobs:
           slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
+          startup-command: 'bash deployment/azure_startup.sh'
