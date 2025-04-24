@@ -13,21 +13,11 @@ log_info() {
 }
 
 # Set environment variable based on DJANGO_ENV or auto-detect based on environment
-if [ -n "$WEBSITE_HOSTNAME" ]; then
-  # Azure environment detected
-  export DJANGO_ENV="prod"
-else
-  # Default to the specified environment or use dev if not specified
-  export DJANGO_ENV=${DJANGO_ENV:-"dev"}
-fi
+export DJANGO_ENV=${DJANGO_ENV:-"dev"}
 log_info "DJANGO_ENV configurado para: $DJANGO_ENV"
 
-# Ensure Python is available in Azure App Service Linux
-if [ -d "$HOME/site/wwwroot/env" ]; then
-    log_info "Activating existing virtual environment..."
-    source "$HOME/site/wwwroot/env/bin/activate" || log_error "Failed to activate virtual environment"
-    PYTHON_CMD="python"
-elif command -v python3 &> /dev/null; then
+# Ensure Python is available
+if command -v python3 &> /dev/null; then
     log_info "Using Python 3: $(python3 --version)"
     PYTHON_CMD="python3"
 elif command -v python &> /dev/null; then
@@ -43,15 +33,6 @@ fi
 if ! command -v gunicorn &> /dev/null; then
     log_info "Installing Gunicorn..."
     pip install gunicorn || log_error "Failed to install Gunicorn"
-fi
-
-# Espere até que o banco de dados esteja disponível (se estiver usando PostgreSQL)
-if [ "$DATABASE_ENGINE" = "postgresql" ]; then
-  log_info "Aguardando o banco de dados PostgreSQL..."
-  while ! nc -z ${DATABASE_HOST:-localhost} ${DATABASE_PORT:-5432}; do
-    sleep 0.1
-  done
-  log_info "Banco de dados disponível!"
 fi
 
 # Define o diretório da aplicação
