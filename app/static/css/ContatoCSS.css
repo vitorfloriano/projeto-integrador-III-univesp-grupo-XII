@@ -1,3 +1,5 @@
+@import url('common.css');
+
 /*Main*/
 
 main{
@@ -6,7 +8,6 @@ main{
     justify-content: center;
     gap: 2rem;
     padding: 1rem;
-    margin-top: 100px;
 }
 
 /*Container 1 e seu título*/
@@ -64,28 +65,6 @@ textarea:focus {
 textarea {
     resize: vertical;
     min-height: 120px;
-}
-
-/*Botão de envio*/
-
-input[type="submit"] {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px 20px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    display: block;
-    margin: 1.5rem auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-input[type="submit"]:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 /*Container do lado direito*/
@@ -151,10 +130,6 @@ input[type="submit"]:hover {
     .map-container {
         height: 250px;
     }
-
-    main {
-        margin-top: 250px;
-    }
 }
 
 @media screen and (max-width: 480px) {
@@ -172,9 +147,5 @@ input[type="submit"]:hover {
     
     .map-container {
         height: 200px;
-    }
-    
-    main {
-        margin-top: 300px;
     }
 }

@@ -3,15 +3,15 @@
 /* GERAL (Light Theme Defaults) */
 body {
     background-color: #F8F7F4;
-    color: #282828;
+    color: #333333;
 }
 
 h1, h2, h3 {
-    color: #cd1818;
+    color: #660033;
 }
 
 ul {
-    background: #F8F7F4;
+    background: #282828;
 }
 
 .container :hover {

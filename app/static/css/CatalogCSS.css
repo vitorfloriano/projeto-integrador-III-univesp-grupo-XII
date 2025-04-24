@@ -1,10 +1,11 @@
+@import url('common.css');
+
 /* Catalog CSS Styles */
 .catalog-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     font-family: sans-serif;
-    margin-top: 100px; /* Aumentado para dar espaço ao menu fixo */
     margin-bottom: 260px; /* Espaço para o footer */
     min-height: calc(100vh - 400px); /* Altura mínima para empurrar o footer para baixo */
     background-color: transparent;
