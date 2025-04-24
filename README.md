@@ -84,7 +84,7 @@ O projeto está configurado para ser implantado no Azure App Service, permitindo
 
 3. **Deploy via GitHub Actions ou Azure DevOps**:
    - Configure o pipeline para usar o arquivo `azure.yml` incluído neste repositório
-   - O script `deployment/azure_startup.sh` será executado para configurar o ambiente e iniciar a aplicação
+   - O script `startup.sh` será executado para configurar o ambiente e iniciar a aplicação
 
 4. **Deploy manual via ZIP Deploy**:
    ```bash
@@ -101,7 +101,7 @@ O projeto está configurado para ser implantado no Azure App Service, permitindo
 
 5. **Solução de Problemas Comuns**:
    - Se a aplicação não iniciar, verifique os logs no portal do Azure
-   - Certifique-se de que o caminho WSGI está correto em `deployment/azure_startup.sh`
+   - Certifique-se de que o caminho WSGI está correto em `startup.sh`
    - Verifique se todas as dependências estão em `requirements.txt`
 
 ## Executando testes
@@ -155,5 +155,3 @@ O sistema é composto pelos seguintes modelos principais:
 3. Commit suas mudanças (`git commit -m 'Adicionando nova feature'`)
 4. Push para a branch (`git push origin feature/nova-feature`)
 5. Abra um Pull Request
-
-
