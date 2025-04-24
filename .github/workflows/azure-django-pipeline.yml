@@ -56,27 +56,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           
-      - name: Prepare deployment scripts
+      - name: Create App Service deployment files
         run: |
+          # Create proper startup command file for Linux App Service
+          echo "gunicorn --bind=0.0.0.0:8000 core.wsgi:application" > startup.txt
+          
+          # Create .deployment file to specify custom deployment script
+          echo "[config]" > .deployment
+          echo "SCM_DO_BUILD_DURING_DEPLOYMENT=true" >> .deployment
+          
+          # Fix permissions for deployment scripts
           chmod +x deployment/azure_startup.sh
-          chmod +x startup.sh
-          
-      - name: Create app settings file
-        run: |
-          cat > .env << 'EOL'
-          DJANGO_ENV=prod
-          DJANGO_SETTINGS_MODULE=core.settings.prod
-          SCM_DO_BUILD_DURING_DEPLOYMENT=true
-          WEBSITE_WEBDEPLOY_USE_SCM=false
-          EOL
-          
-      # Create startup.txt for Linux App Service
-      - name: Create startup command file for Linux App Service
-        run: |
-          echo "gunicorn core.wsgi:application --bind=0.0.0.0:8000 --workers=3 --timeout=120" > startup.txt
-          
+      
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'autoItaApp'
