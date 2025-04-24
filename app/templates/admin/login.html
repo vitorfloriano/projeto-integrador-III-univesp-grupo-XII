@@ -1,9 +1,64 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/login.css" %}">
+{% block title %}Login Admin - Auto Ita{% endblock %}
+
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'admin/css/login.css' %}">
 {{ form.media }}
 <style>
+  #content-main {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 30px auto;
+  }
+  
+  .form-row {
+    margin-bottom: 20px;
+  }
+  
+  .form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-row input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .errornote {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  
+  .submit-row {
+    text-align: right;
+  }
+  
+  .submit-row input {
+    background-color: #417690;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .password-reset-link {
+    margin-bottom: 15px;
+  }
+  
   .home-button {
     display: inline-block;
     padding: 10px 15px;
@@ -15,9 +70,11 @@
     margin-top: 20px;
     transition: background-color 0.3s;
   }
+  
   .home-button:hover {
     background-color: #295570;
   }
+  
   .home-button-container {
     text-align: center;
     margin-top: 20px;
@@ -25,67 +82,55 @@
 </style>
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} login{% endblock %}
+{% block theme_button %}{% endblock %}
 
-{% block usertools %}{% endblock %}
-
-{% block nav-global %}{% endblock %}
-
-{% block nav-sidebar %}{% endblock %}
-
-{% block content_title %}{% endblock %}
-
-{% block nav-breadcrumbs %}{% endblock %}
-
-{% block content %}
-{% if form.errors and not form.non_field_errors %}
-<p class="errornote">
-{% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}</p>
-{% endif %}
-
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<p class="errornote">
-    {{ error }}
-</p>
-{% endfor %}
-{% endif %}
-
+{% block conteudo %}
 <div id="content-main">
+  <h1 style="text-align: center; margin-bottom: 20px;">Login Administrativo</h1>
 
-{% if user.is_authenticated %}
-<p class="errornote">
-{% blocktranslate trimmed %}
-    You are authenticated as {{ username }}, but are not authorized to
-    access this page. Would you like to login to a different account?
-{% endblocktranslate %}
-</p>
-{% endif %}
-
-<form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
-  <div class="form-row">
-    {{ form.username.errors }}
-    {{ form.username.label_tag }} {{ form.username }}
-  </div>
-  <div class="form-row">
-    {{ form.password.errors }}
-    {{ form.password.label_tag }} {{ form.password }}
-    <input type="hidden" name="next" value="{{ next }}">
-  </div>
-  {% url 'admin_password_reset' as password_reset_url %}
-  {% if password_reset_url %}
-  <div class="password-reset-link">
-    <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
-  </div>
+  {% if form.errors and not form.non_field_errors %}
+  <p class="errornote">
+  {% blocktranslate count counter=form.errors.items|length %}Por favor, corrija o erro abaixo.{% plural %}Por favor, corrija os erros abaixo.{% endblocktranslate %}</p>
   {% endif %}
-  <div class="submit-row">
-    <input type="submit" value="{% translate 'Log in' %}">
+
+  {% if form.non_field_errors %}
+  {% for error in form.non_field_errors %}
+  <p class="errornote">{{ error }}</p>
+  {% endfor %}
+  {% endif %}
+
+  {% if user.is_authenticated %}
+  <p class="errornote">
+  {% blocktranslate trimmed %}
+      Você está autenticado como {{ username }}, mas não está autorizado a
+      acessar esta página. Deseja fazer login com uma conta diferente?
+  {% endblocktranslate %}
+  </p>
+  {% endif %}
+
+  <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+    <div class="form-row">
+      {{ form.username.errors }}
+      {{ form.username.label_tag }} {{ form.username }}
+    </div>
+    <div class="form-row">
+      {{ form.password.errors }}
+      {{ form.password.label_tag }} {{ form.password }}
+      <input type="hidden" name="next" value="{{ next }}">
+    </div>
+    {% url 'admin_password_reset' as password_reset_url %}
+    {% if password_reset_url %}
+    <div class="password-reset-link">
+      <a href="{{ password_reset_url }}">{% translate 'Esqueceu sua senha ou nome de usuário?' %}</a>
+    </div>
+    {% endif %}
+    <div class="submit-row">
+      <input type="submit" value="{% translate 'Entrar' %}">
+    </div>
+  </form>
+
+  <div class="home-button-container">
+    <a href="/" class="home-button">Voltar à Página Inicial</a>
   </div>
-</form>
-
-<div class="home-button-container">
-  <a href="/" class="home-button">Voltar à Página Inicial</a>
-</div>
-
 </div>
 {% endblock %}

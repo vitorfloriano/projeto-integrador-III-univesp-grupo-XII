@@ -4,6 +4,9 @@ from .base import *
 DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# CSRF settings - adicionar essa configuração
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8000', 'http://localhost:8000', 'http://127.0.0.1:8000']
+
 # CORS settings for development
 CORS_ALLOW_ALL_ORIGINS = True
 
