@@ -15,10 +15,10 @@ from django.core.wsgi import get_wsgi_application
 if 'WEBSITE_HOSTNAME' in os.environ:
     print("Azure App Service environment detected, setting DJANGO_ENV to 'prod'")
     os.environ.setdefault('DJANGO_ENV', 'prod')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.prod')
 else:
     print("Local environment detected, setting DJANGO_ENV to 'dev'")
     os.environ.setdefault('DJANGO_ENV', 'dev')
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.dev')
 
 application = get_wsgi_application()

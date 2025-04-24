@@ -66,6 +66,14 @@ $PYTHON_CMD manage.py collectstatic --noinput || log_error "Failed to collect st
 log_info "Aplicando migrações..."
 $PYTHON_CMD manage.py migrate --noinput || log_error "Failed to apply migrations"
 
+# Set Django settings module based on environment
+if [ "$DJANGO_ENV" = "prod" ]; then
+  export DJANGO_SETTINGS_MODULE="core.settings.prod"
+else
+  export DJANGO_SETTINGS_MODULE="core.settings.dev"
+fi
+log_info "DJANGO_SETTINGS_MODULE set to: $DJANGO_SETTINGS_MODULE"
+
 # Inicie o servidor baseado no ambiente
 if [ "$DJANGO_ENV" = "dev" ]; then
   log_info "Iniciando servidor de desenvolvimento Django..."
