@@ -1,8 +1,9 @@
 language: python
 pythonVersion: '3.12'
+linuxFxVersion: 'PYTHON|3.12'
 
-# Use the updated startup script in the deployment directory
-startupCommand: bash deployment/azure_startup.sh
+# Define startup command for Linux environment
+startupCommand: 'gunicorn core.wsgi:application --bind=0.0.0.0:8000'
 
 # Azure App Service environment settings
 environmentVariables:
@@ -18,8 +19,8 @@ environmentVariables:
     value: 1
   - name: PYTHONPATH
     value: /home/site/wwwroot
-  - name: WEBSITE_WEBDEPLOY_USE_SCM
-    value: false
+  - name: PORT
+    value: 8000
 
 # Azure App Service deployment settings
 appServicePlanTier: StandardS1

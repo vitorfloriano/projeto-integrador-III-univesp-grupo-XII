@@ -1,5 +1,5 @@
 #!/bin/bash
-# Consolidated Azure deployment startup script with improved error handling
+# Linux-optimized Azure App Service startup script
 set -e  # Exit immediately if a command exits with non-zero status
 
 # Function for error logging
@@ -13,70 +13,63 @@ log_info() {
     echo "INFO: $1"
 }
 
-# Diretório base da aplicação
-APP_DIR="$HOME/site/wwwroot"
-log_info "Diretório da aplicação: $APP_DIR"
+# Base directory for the application
+APP_DIR="/home/site/wwwroot"
+log_info "Application directory: $APP_DIR"
 
-# Explicitamente definindo ambiente de produção para Azure
+# Set production environment for Azure
 export DJANGO_ENV="prod"
-log_info "DJANGO_ENV configurado para: $DJANGO_ENV"
+log_info "DJANGO_ENV set to: $DJANGO_ENV"
 
-# Ensure we're in the right directory
+# Ensure we're in the correct directory
 cd "$APP_DIR" || log_error "Failed to change to app directory: $APP_DIR"
 
-# Check if Python exists and print version
+# Detect Python and set command
 if command -v python3 &> /dev/null; then
-    log_info "Python 3 encontrado: $(python3 --version)"
+    log_info "Python 3 found: $(python3 --version)"
     PYTHON_CMD="python3"
 elif command -v python &> /dev/null; then
-    log_info "Python encontrado: $(python --version)"
+    log_info "Python found: $(python --version)"
     PYTHON_CMD="python"
 else
-    log_error "Python não encontrado. Verifique a configuração do ambiente."
+    log_error "Python not found. Check your environment configuration."
 fi
 
-# Use built-in venv for Python installations on Azure App Service
-if [ -d "$HOME/site/wwwroot/env" ]; then
-    log_info "Ativando ambiente virtual existente..."
-    source "$HOME/site/wwwroot/env/bin/activate" || log_error "Falha ao ativar ambiente virtual."
-elif [ -d "$HOME/.python_packages" ]; then
-    log_info "Usando Python packages em $HOME/.python_packages"
-    export PYTHONPATH="$HOME/.python_packages/lib/site-packages:$PYTHONPATH"
-fi
+# Set appropriate PYTHONPATH for Linux environment
+export PYTHONPATH="$APP_DIR:$PYTHONPATH"
+log_info "PYTHONPATH set to: $PYTHONPATH"
 
-# Verify pip installation
-if ! command -v pip &> /dev/null; then
-    log_error "Pip não encontrado. Verifique a instalação do Python."
-fi
-
-log_info "Versão do pip: $(pip --version)"
+# Set Django settings module
+export DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-"core.settings.prod"}
+log_info "DJANGO_SETTINGS_MODULE set to: $DJANGO_SETTINGS_MODULE"
 
 # Install dependencies with error handling
-log_info "Instalando dependências..."
-pip install -r "$APP_DIR/requirements.txt" || log_error "Falha ao instalar dependências."
+log_info "Installing dependencies..."
+pip install -r "$APP_DIR/requirements.txt" || log_error "Failed to install dependencies."
 
-# Set appropriate PYTHONPATH
-export PYTHONPATH="$APP_DIR:$PYTHONPATH"
-log_info "PYTHONPATH configurado: $PYTHONPATH"
+# Run database migrations
+log_info "Applying database migrations..."
+$PYTHON_CMD manage.py migrate --noinput || log_error "Failed to apply migrations."
 
-# Set the correct Django settings module
-export DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-"core.settings.prod"}
-log_info "DJANGO_SETTINGS_MODULE configurado para: $DJANGO_SETTINGS_MODULE"
+# Collect static files
+log_info "Collecting static files..."
+$PYTHON_CMD manage.py collectstatic --noinput --clear || log_error "Failed to collect static files."
 
-# Run database migrations with error handling
-log_info "Aplicando migrações do banco de dados..."
-$PYTHON_CMD manage.py migrate --noinput || log_error "Falha ao aplicar migrações."
-
-# Collect static files with error handling
-log_info "Coletando arquivos estáticos..."
-$PYTHON_CMD manage.py collectstatic --noinput --clear || log_error "Falha ao coletar arquivos estáticos."
-
-# Start Gunicorn
-log_info "Iniciando o Gunicorn..."
-if command -v gunicorn &> /dev/null; then
-    gunicorn core.wsgi:application --bind=0.0.0.0:${PORT:-8000} --log-level info --timeout 120
-else
-    log_info "Gunicorn não encontrado, instalando..."
-    pip install gunicorn || log_error "Falha ao instalar Gunicorn."
-    gunicorn core.wsgi:application --bind=0.0.0.0:${PORT:-8000} --log-level info --timeout 120
+# Start Gunicorn for production with appropriate Linux settings
+log_info "Starting Gunicorn server..."
+if ! command -v gunicorn &> /dev/null; then
+    log_info "Gunicorn not found, installing..."
+    pip install gunicorn || log_error "Failed to install Gunicorn."
 fi
+
+# Export port for Azure Linux App Service
+export PORT=${PORT:-8000}
+log_info "Using port: $PORT"
+
+# Execute Gunicorn with optimized settings for Linux App Service
+exec gunicorn core.wsgi:application \
+    --bind=0.0.0.0:$PORT \
+    --workers=${GUNICORN_WORKERS:-3} \
+    --timeout=${GUNICORN_TIMEOUT:-120} \
+    --access-logfile='-' \
+    --error-logfile='-'

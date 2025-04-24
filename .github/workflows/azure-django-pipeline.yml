@@ -59,16 +59,24 @@ jobs:
       - name: Prepare deployment scripts
         run: |
           chmod +x deployment/azure_startup.sh
+          chmod +x startup.sh
           
-      - name: Add SCM_DO_BUILD_DURING_DEPLOYMENT flag
-        run: |
-          echo "SCM_DO_BUILD_DURING_DEPLOYMENT=true" >> .env
-          
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
       - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'autoItaApp'
           slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
-          startup-command: 'bash deployment/azure_startup.sh'
+
+      - name: Configure App Settings
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az webapp config appsettings set --name autoItaApp --resource-group <YourResourceGroupName> --settings DJANGO_ENV=prod DJANGO_SETTINGS_MODULE=core.settings.prod SCM_DO_BUILD_DURING_DEPLOYMENT=true WEBSITE_WEBDEPLOY_USE_SCM=false
