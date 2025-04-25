@@ -5,7 +5,9 @@ import os
 DEBUG = False
 
 # ALLOWED_HOSTS para produção - inclui o domínio do Azure
-ALLOWED_HOSTS = ['autoita-projeto-integrador-iii-univesp.azurewebsites.net', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['autoita-projeto-integrador-iii-univesp.azurewebsites.net', 
+                 'autoita-projeto-integrador-iii-univesp-gaayc3b7bsf6hmbs.brazilsouth-01.azurewebsites.net', 
+                 'localhost', '127.0.0.1']
 
 # Security settings for production
 SESSION_COOKIE_SECURE = True
