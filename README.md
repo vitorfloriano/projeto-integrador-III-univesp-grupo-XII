@@ -16,8 +16,8 @@ Este projeto é um sistema de gerenciamento de estoque e catálogo online para a
 
 - **Backend**: Django, Django REST Framework
 - **Frontend**: HTML, CSS, JavaScript
-- **Banco de Dados**: SQLite (em desenvolvimento)
-- **Deploy**: Configuração para ambientes de produção com variáveis de ambiente
+- **Banco de Dados**: SQLite (em desenvolvimento) e PostgreSQL (em produção)
+- **Deploy**: Azure App Services
 
 ## API REST
 
