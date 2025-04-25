@@ -1,11 +1,12 @@
 /**
  * ESTILOS BASE
  * Estilos fundamentais para toda a aplicação
+ * Redesenhados para alinhar-se com o Geist Design da Vercel
  */
 
 /* Importação de fontes */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
 
 /* Importação de variáveis e outros componentes core */
 @import url('variaveis.css');
@@ -21,6 +22,10 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   height: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -32,6 +37,14 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.tema-transicao * {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.transicoes-ativas * {
   transition: var(--transicao-padrao);
 }
 
@@ -40,21 +53,47 @@ a {
   color: var(--cor-primaria);
   text-decoration: none;
   transition: var(--transicao-rapida);
+  position: relative;
+  display: inline-block;
 }
 
 a:hover {
   color: var(--cor-primaria-escura);
 }
 
+a.link-sublinhado {
+  color: var(--cor-texto);
+}
+
+a.link-sublinhado::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -1px;
+  left: 0;
+  background-color: var(--cor-texto);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+a.link-sublinhado:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--peso-fonte-negrito);
-  line-height: 1.2;
+  line-height: 1.25;
   margin-bottom: 0.5em;
   color: var(--cor-titulo);
+  letter-spacing: -0.02em;
 }
 
 h1 {
   font-size: var(--tamanho-titulo-grande);
+  letter-spacing: -0.03em;
 }
 
 h2 {
@@ -104,13 +143,29 @@ button, input, select, textarea {
 main {
   flex: 1;
   width: 100%;
-  margin-top: 90px; /* Ajustar baseado na altura do cabeçalho */
+  margin-top: 64px; /* Ajustado para altura do cabeçalho Geist */
 }
 
 /* Foco acessível */
 :focus {
-  outline: 3px solid rgba(205, 24, 24, 0.5);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.15);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.15);
+}
+
+/* Seleção de texto */
+::selection {
+  background-color: rgba(255, 77, 79, 0.15);
+  color: var(--cor-texto);
 }
 
 /* Utilidades de acessibilidade */
@@ -126,6 +181,22 @@ main {
   border-width: 0;
 }
 
+/* Scroll suave */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cor-cinza-medio);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cor-cinza-escuro);
+}
+
 /* Responsividade base */
 @media (max-width: 992px) {
   html {
@@ -139,7 +210,7 @@ main {
   }
   
   main {
-    margin-top: 80px;
+    margin-top: 56px; /* Ajustado para altura do cabeçalho mobile */
   }
 }
 
