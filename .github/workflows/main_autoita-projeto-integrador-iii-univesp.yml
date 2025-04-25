@@ -6,9 +6,9 @@ name: Build and deploy Python app to Azure Web App - autoita-projeto-integrador-
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    tags:
+      - 'v*'  # Executa o workflow quando tags que começam com 'v' são criadas (ex. v1.0.0)
+  workflow_dispatch:  # Mantém a opção de execução manual
 
 jobs:
   build:
@@ -78,4 +78,3 @@ jobs:
         with:
           app-name: 'autoita-projeto-integrador-iii-univesp'
           slot-name: 'Production'
-          
