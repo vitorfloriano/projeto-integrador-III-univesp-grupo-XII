@@ -1,0 +1,57 @@
+/* 
+ * TEMA CLARO
+ * Configurações específicas para o tema claro do site
+ */
+
+:root {
+  /* Cores primárias */
+  --cor-primaria: #cd1818;
+  --cor-primaria-escura: #b01010;
+  --cor-secundaria: #222629;
+  
+  /* Cores neutras */
+  --cor-branco: #ffffff;
+  --cor-preto: #222222;
+  --cor-cinza-claro: #f8f7f4;
+  --cor-cinza-medio: #e9e7e0;
+  --cor-cinza-escuro: #666666;
+  
+  /* Cores de texto */
+  --cor-texto: #333333;
+  --cor-texto-secundario: #666666;
+  --cor-titulo: #cd1818;
+  --cor-label: #333333;
+  
+  /* Cores de fundo */
+  --cor-fundo-pagina: #f8f7f4;
+  --cor-fundo-card: #ffffff;
+  --cor-fundo-secao-alt: #f5f5f5;
+  --cor-fundo-controle: #f8f8f8;
+  --cor-fundo-input: #FBFFF4;
+  --cor-fundo-hover: #f0f0f0;
+  --cor-fundo-formulario: #ffffff;
+  
+  /* Cores de feedback */
+  --cor-sucesso: #4CAF50;
+  --cor-alerta: #FFC107;
+  --cor-erro: #F44336;
+  --cor-info: #2196F3;
+  
+  /* Cores de bordas */
+  --cor-borda: #e1e1e1;
+  --cor-borda-input: #cccccc;
+  
+  /* Cores de botões */
+  --cor-botao-primario: var(--cor-primaria);
+  --cor-texto-botao-primario: var(--cor-branco);
+  --cor-botao-secundario: var(--cor-branco);
+  --cor-texto-botao-secundario: var(--cor-primaria);
+  
+  /* Elementos de navegação */
+  --cor-cabecalho: var(--cor-branco);
+  
+  /* Sombras específicas para tema claro */
+  --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --sombra-forte: 0 8px 24px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,60 @@
+/* 
+ * TEMA ESCURO
+ * Configurações específicas para o tema escuro do site
+ */
+
+:root {
+  /* Cores primárias */
+  --cor-primaria: #cd1818;
+  --cor-primaria-escura: #a01010;
+  --cor-secundaria: #121212;
+  
+  /* Cores neutras */
+  --cor-branco: #ffffff;
+  --cor-preto: #121212;
+  --cor-cinza-claro: #333333;
+  --cor-cinza-medio: #282622;
+  --cor-cinza-escuro: #aaaaaa;
+  
+  /* Cores de texto */
+  --cor-texto: #F8F7F4;
+  --cor-texto-secundario: #cccccc;
+  --cor-titulo: #cd1818;
+  --cor-label: #F8F7F4;
+  
+  /* Cores de fundo */
+  --cor-fundo-pagina: #121212;
+  --cor-fundo-card: #1e1e1e;
+  --cor-fundo-secao-alt: #252525;
+  --cor-fundo-controle: #333333;
+  --cor-fundo-input: #1e1e1e;
+  --cor-fundo-hover: #303030;
+  --cor-fundo-formulario: #0C0C0C;
+  
+  /* Cores de feedback */
+  --cor-sucesso: #4CAF50;
+  --cor-alerta: #FFC107;
+  --cor-erro: #F44336;
+  --cor-info: #2196F3;
+  
+  /* Cores de bordas */
+  --cor-borda: #333333;
+  --cor-borda-input: #444444;
+  
+  /* Cores de botões */
+  --cor-botao-primario: #FFF5EA;
+  --cor-texto-botao-primario: #000000;
+  --cor-botao-secundario: #cd1818;
+  --cor-texto-botao-secundario: #ffffff;
+  
+  /* Elementos de navegação */
+  --cor-fundo-menu: #121212;
+  --cor-texto-menu: #282828;
+  --cor-hover-menu: #282622;
+  --cor-texto-hover-menu: #F8F7F4;
+  
+  /* Sombras específicas para tema escuro */
+  --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --sombra-media: 0 6px 20px rgba(0, 0, 0, 0.5);
+  --sombra-forte: 0 8px 32px rgba(0, 0, 0, 0.6);
+}

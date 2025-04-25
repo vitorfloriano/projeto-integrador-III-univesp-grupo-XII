@@ -3,18 +3,13 @@
 
 {% block title %}Trabalhe Conosco | AutoIta{% endblock %}
 
-{% block style_links %}
-<link rel="stylesheet" href="{% static 'css/FormsCSS.css' %}">
-<link rel="stylesheet" href="{% static 'temas/claro/claroForms.css' %}" id="temas">
-{% endblock %}
-
-{% block theme_script %}
-setupThemeToggle("#temas", "{% static 'temas/claro/claroForms.css' %}", "{% static 'temas/escuro/escuroForms.css' %}");
+{% block css_pagina %}
+<link rel="stylesheet" href="{% static 'css/paginas/formulario.css' %}">
 {% endblock %}
 
 {% block conteudo %}
 <main>
-    <div class="box">
+    <div class="caixa">
         <h1>Trabalhe Conosco</h1>
         <form action="#" method="post">
             {% csrf_token %}
@@ -32,23 +27,23 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroForms.css' %}", "{% stat
                 <input type="date" name="data_nascimento" id="data_nascimento" required>
 
                 <p>Área de Interesse:</p>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
+                <div class="grupo-checkbox">
+                    <div class="item-checkbox">
                         <input type="radio" id="vendas" name="area" value="vendas" checked>
                         <label for="vendas">Vendas</label>
                     </div>
                     
-                    <div class="checkbox-item">
+                    <div class="item-checkbox">
                         <input type="radio" id="estoque" name="area" value="estoque">
                         <label for="estoque">Estoque</label>
                     </div>
                     
-                    <div class="checkbox-item">
+                    <div class="item-checkbox">
                         <input type="radio" id="administracao" name="area" value="administracao">
                         <label for="administracao">Administração</label>
                     </div>
                     
-                    <div class="checkbox-item">
+                    <div class="item-checkbox">
                         <input type="radio" id="outro" name="area" value="outro">
                         <label for="outro">Outro</label>
                     </div>
@@ -62,24 +57,24 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroForms.css' %}", "{% stat
         </form>
     </div>
 
-    <div class="box2">
+    <div class="caixa2">
         <h2>Junte-se à Nossa Equipe</h2>
-        <p class="flavor_forms">
+        <p class="texto-formulario">
             Na AutoIta Peças, estamos sempre em busca de profissionais talentosos e apaixonados pelo setor automotivo. 
             Valorizamos pessoas que compartilham nossa dedicação à qualidade e ao excelente atendimento ao cliente.
         </p>
-        <p class="flavor_forms">
+        <p class="texto-formulario">
             Preencha o formulário ao lado para candidatar-se a uma vaga em nossa equipe.
             Analisaremos seu currículo e entraremos em contato caso seu perfil se encaixe em nossas oportunidades atuais.
         </p>
-        <div class="flavor_logo">
+        <div class="logo-formulario">
             <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo AutoIta">
         </div>
     </div>
 </main>
 {% endblock %}
 
-{% block extra_scripts %}
+{% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Máscara para o campo de telefone

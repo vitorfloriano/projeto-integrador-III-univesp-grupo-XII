@@ -1,0 +1,216 @@
+/* 
+ * UTILITÁRIOS CSS
+ * Fornece classes auxiliares para espaçamento, alinhamento, exibição, etc.
+ */
+
+/* MARGEM */
+
+/* Margens em todas as direções */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: var(--espaco-pequeno) !important; }
+.m-2 { margin: var(--espaco-medio) !important; }
+.m-3 { margin: var(--espaco-grande) !important; }
+.m-4 { margin: var(--espaco-extra) !important; }
+
+/* Margem vertical (topo e base) */
+.my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.my-1 { margin-top: var(--espaco-pequeno) !important; margin-bottom: var(--espaco-pequeno) !important; }
+.my-2 { margin-top: var(--espaco-medio) !important; margin-bottom: var(--espaco-medio) !important; }
+.my-3 { margin-top: var(--espaco-grande) !important; margin-bottom: var(--espaco-grande) !important; }
+.my-4 { margin-top: var(--espaco-extra) !important; margin-bottom: var(--espaco-extra) !important; }
+
+/* Margem horizontal (esquerda e direita) */
+.mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+.mx-1 { margin-left: var(--espaco-pequeno) !important; margin-right: var(--espaco-pequeno) !important; }
+.mx-2 { margin-left: var(--espaco-medio) !important; margin-right: var(--espaco-medio) !important; }
+.mx-3 { margin-left: var(--espaco-grande) !important; margin-right: var(--espaco-grande) !important; }
+.mx-4 { margin-left: var(--espaco-extra) !important; margin-right: var(--espaco-extra) !important; }
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+/* Margem topo */
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: var(--espaco-pequeno) !important; }
+.mt-2 { margin-top: var(--espaco-medio) !important; }
+.mt-3 { margin-top: var(--espaco-grande) !important; }
+.mt-4 { margin-top: var(--espaco-extra) !important; }
+
+/* Margem direita */
+.mr-0 { margin-right: 0 !important; }
+.mr-1 { margin-right: var(--espaco-pequeno) !important; }
+.mr-2 { margin-right: var(--espaco-medio) !important; }
+.mr-3 { margin-right: var(--espaco-grande) !important; }
+.mr-4 { margin-right: var(--espaco-extra) !important; }
+
+/* Margem base */
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: var(--espaco-pequeno) !important; }
+.mb-2 { margin-bottom: var(--espaco-medio) !important; }
+.mb-3 { margin-bottom: var(--espaco-grande) !important; }
+.mb-4 { margin-bottom: var(--espaco-extra) !important; }
+
+/* Margem esquerda */
+.ml-0 { margin-left: 0 !important; }
+.ml-1 { margin-left: var(--espaco-pequeno) !important; }
+.ml-2 { margin-left: var(--espaco-medio) !important; }
+.ml-3 { margin-left: var(--espaco-grande) !important; }
+.ml-4 { margin-left: var(--espaco-extra) !important; }
+
+/* PREENCHIMENTO */
+
+/* Preenchimento em todas as direções */
+.p-0 { padding: 0 !important; }
+.p-1 { padding: var(--espaco-pequeno) !important; }
+.p-2 { padding: var(--espaco-medio) !important; }
+.p-3 { padding: var(--espaco-grande) !important; }
+.p-4 { padding: var(--espaco-extra) !important; }
+
+/* Preenchimento vertical (topo e base) */
+.py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+.py-1 { padding-top: var(--espaco-pequeno) !important; padding-bottom: var(--espaco-pequeno) !important; }
+.py-2 { padding-top: var(--espaco-medio) !important; padding-bottom: var(--espaco-medio) !important; }
+.py-3 { padding-top: var(--espaco-grande) !important; padding-bottom: var(--espaco-grande) !important; }
+.py-4 { padding-top: var(--espaco-extra) !important; padding-bottom: var(--espaco-extra) !important; }
+
+/* Preenchimento horizontal (esquerda e direita) */
+.px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+.px-1 { padding-left: var(--espaco-pequeno) !important; padding-right: var(--espaco-pequeno) !important; }
+.px-2 { padding-left: var(--espaco-medio) !important; padding-right: var(--espaco-medio) !important; }
+.px-3 { padding-left: var(--espaco-grande) !important; padding-right: var(--espaco-grande) !important; }
+.px-4 { padding-left: var(--espaco-extra) !important; padding-right: var(--espaco-extra) !important; }
+
+/* Preenchimento topo */
+.pt-0 { padding-top: 0 !important; }
+.pt-1 { padding-top: var(--espaco-pequeno) !important; }
+.pt-2 { padding-top: var(--espaco-medio) !important; }
+.pt-3 { padding-top: var(--espaco-grande) !important; }
+.pt-4 { padding-top: var(--espaco-extra) !important; }
+
+/* Preenchimento direita */
+.pr-0 { padding-right: 0 !important; }
+.pr-1 { padding-right: var(--espaco-pequeno) !important; }
+.pr-2 { padding-right: var(--espaco-medio) !important; }
+.pr-3 { padding-right: var(--espaco-grande) !important; }
+.pr-4 { padding-right: var(--espaco-extra) !important; }
+
+/* Preenchimento base */
+.pb-0 { padding-bottom: 0 !important; }
+.pb-1 { padding-bottom: var(--espaco-pequeno) !important; }
+.pb-2 { padding-bottom: var(--espaco-medio) !important; }
+.pb-3 { padding-bottom: var(--espaco-grande) !important; }
+.pb-4 { padding-bottom: var(--espaco-extra) !important; }
+
+/* Preenchimento esquerda */
+.pl-0 { padding-left: 0 !important; }
+.pl-1 { padding-left: var(--espaco-pequeno) !important; }
+.pl-2 { padding-left: var(--espaco-medio) !important; }
+.pl-3 { padding-left: var(--espaco-grande) !important; }
+.pl-4 { padding-left: var(--espaco-extra) !important; }
+
+/* ALINHAMENTO DE TEXTO */
+.texto-centro { text-align: center !important; }
+.texto-esquerda { text-align: left !important; }
+.texto-direita { text-align: right !important; }
+.texto-justificado { text-align: justify !important; }
+
+/* TIPOGRAFIA */
+.texto-normal { font-weight: var(--peso-fonte-normal) !important; }
+.texto-medio { font-weight: var(--peso-fonte-medio) !important; }
+.texto-semi-negrito { font-weight: var(--peso-fonte-semi-negrito) !important; }
+.texto-negrito { font-weight: var(--peso-fonte-negrito) !important; }
+
+.texto-pequeno { font-size: var(--tamanho-texto-pequeno) !important; }
+.texto-normal { font-size: var(--tamanho-texto-normal) !important; }
+.texto-medio { font-size: var(--tamanho-texto-medio) !important; }
+.texto-grande { font-size: var(--tamanho-texto-grande) !important; }
+
+.texto-maiusculo { text-transform: uppercase !important; }
+.texto-minusculo { text-transform: lowercase !important; }
+.texto-capitalizado { text-transform: capitalize !important; }
+
+/* FLEXBOX */
+.flex { display: flex !important; }
+.flex-inline { display: inline-flex !important; }
+.flex-coluna { flex-direction: column !important; }
+.flex-linha { flex-direction: row !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+
+.flex-centro { justify-content: center !important; align-items: center !important; }
+.flex-inicio { justify-content: flex-start !important; }
+.flex-fim { justify-content: flex-end !important; }
+.flex-entre { justify-content: space-between !important; }
+.flex-redor { justify-content: space-around !important; }
+.flex-evenly { justify-content: space-evenly !important; }
+
+.items-inicio { align-items: flex-start !important; }
+.items-fim { align-items: flex-end !important; }
+.items-centro { align-items: center !important; }
+.items-esticar { align-items: stretch !important; }
+
+.self-inicio { align-self: flex-start !important; }
+.self-fim { align-self: flex-end !important; }
+.self-centro { align-self: center !important; }
+.self-esticar { align-self: stretch !important; }
+
+.gap-1 { gap: var(--espaco-pequeno) !important; }
+.gap-2 { gap: var(--espaco-medio) !important; }
+.gap-3 { gap: var(--espaco-grande) !important; }
+.gap-4 { gap: var(--espaco-extra) !important; }
+
+/* VISIBILIDADE */
+.esconder { display: none !important; }
+.mostrar { display: block !important; }
+.invisivel { visibility: hidden !important; }
+.visivel { visibility: visible !important; }
+
+/* POSIÇÃO */
+.posicao-relativa { position: relative !important; }
+.posicao-absoluta { position: absolute !important; }
+.posicao-fixa { position: fixed !important; }
+.posicao-estatica { position: static !important; }
+.posicao-grudada { position: sticky !important; }
+
+/* CORES DE TEXTO */
+.texto-primario { color: var(--cor-primaria) !important; }
+.texto-secundario { color: var(--cor-texto-secundario) !important; }
+.texto-claro { color: var(--cor-branco) !important; }
+.texto-escuro { color: var(--cor-preto) !important; }
+.texto-sucesso { color: var(--cor-sucesso) !important; }
+.texto-alerta { color: var(--cor-alerta) !important; }
+.texto-erro { color: var(--cor-erro) !important; }
+.texto-info { color: var(--cor-info) !important; }
+
+/* CORES DE FUNDO */
+.fundo-primario { background-color: var(--cor-primaria) !important; }
+.fundo-secundario { background-color: var(--cor-secundaria) !important; }
+.fundo-claro { background-color: var(--cor-branco) !important; }
+.fundo-escuro { background-color: var(--cor-preto) !important; }
+.fundo-sucesso { background-color: var(--cor-sucesso) !important; }
+.fundo-alerta { background-color: var(--cor-alerta) !important; }
+.fundo-erro { background-color: var(--cor-erro) !important; }
+.fundo-info { background-color: var(--cor-info) !important; }
+
+/* BORDAS */
+.borda { border: 1px solid var(--cor-borda) !important; }
+.borda-topo { border-top: 1px solid var(--cor-borda) !important; }
+.borda-direita { border-right: 1px solid var(--cor-borda) !important; }
+.borda-base { border-bottom: 1px solid var(--cor-borda) !important; }
+.borda-esquerda { border-left: 1px solid var(--cor-borda) !important; }
+
+.borda-primaria { border-color: var(--cor-primaria) !important; }
+.borda-secundaria { border-color: var(--cor-secundaria) !important; }
+.borda-sucesso { border-color: var(--cor-sucesso) !important; }
+.borda-alerta { border-color: var(--cor-alerta) !important; }
+.borda-erro { border-color: var(--cor-erro) !important; }
+.borda-info { border-color: var(--cor-info) !important; }
+
+.borda-arredondada { border-radius: var(--raio-borda-medio) !important; }
+.borda-arredondada-pequena { border-radius: var(--raio-borda-pequeno) !important; }
+.borda-arredondada-grande { border-radius: var(--raio-borda-grande) !important; }
+.borda-circular { border-radius: var(--raio-borda-circular) !important; }
+
+/* SOMBRAS */
+.sombra-suave { box-shadow: var(--sombra-suave) !important; }
+.sombra-media { box-shadow: var(--sombra-media) !important; }
+.sombra-forte { box-shadow: var(--sombra-forte) !important; }
+.sem-sombra { box-shadow: none !important; }

@@ -9,97 +9,39 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'admin-interface/favicon/logo_autoita-cortada.png' %}">
     
-    <!-- Estilos CSS -->
-    <link rel="stylesheet" href="{% static 'css/BasicoCSS.css' %}">
-    {% block style_links %}{% endblock %}
+    <!-- CSS Core -->
+    <link rel="stylesheet" href="{% static 'css/core/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/componentes.css' %}">
+    <link rel="stylesheet" href="{% static 'css/core/utilidades.css' %}">
+    
+    <!-- Tema padrão (será trocado pelo gerenciador de temas) -->
+    <link rel="stylesheet" href="{% static 'css/temas/tema-claro.css' %}" id="tema-atual">
+    
+    <!-- CSS específico de cada página -->
+    {% block css_pagina %}{% endblock %}
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
           integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" 
           crossorigin="anonymous">
-        
-    <!-- Mensagens de alerta estilo -->
-    <style>
-        .messages {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 10px;
-        }
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            position: relative;
-            padding-left: 45px;
-        }
-        .alert:before {
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
-        }
-        .alert-error:before {
-            content: "\f06a";
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
-        }
-        .alert-success:before {
-            content: "\f058";
-        }
-        .alert-warning {
-            background-color: #fff3cd;
-            color: #856404;
-            border-left: 4px solid #ffc107;
-        }
-        .alert-warning:before {
-            content: "\f071";
-        }
-        .alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #17a2b8;
-        }
-        .alert-info:before {
-            content: "\f05a";
-        }
-        .error-message {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-left: 3px solid #dc3545;
-            padding: 8px 12px;
-            margin: 5px 0 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-    </style>
 </head>
 <body>
-    <!-- Menu de navegação -->
-    <header class="header">
-        <div class="header-container">
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <div class="cabecalho-container">
             <div class="logo-container">
                <a href="/homepage" class="logo-link"> 
-                   <img src="{% static 'imagens/logo_autoita-cortada.png' %}" alt="Logo AutoIta" class="logo-image"> 
+                   <img src="{% static 'imagens/logo_autoita-cortada.png' %}" alt="Logo AutoIta" class="logo-imagem"> 
                </a>
             </div>
 
-            <button class="mobile-menu-toggle">
+            <button class="botao-menu-mobile">
                 <span class="fas fa-bars"></span>
             </button>
             
             <nav class="nav-menu">
-                <ul class="nav-list">
+                <ul class="nav-lista">
                     <li class="nav-item"><a href="/homepage" class="nav-link"><span class="fas fa-home"></span> Página Inicial</a></li>
                     <li class="nav-item"><a href="/catalogo" class="nav-link"><span class="fas fa-list"></span> Catálogo de Peças</a></li>
                     <li class="nav-item"><a href="/forms" class="nav-link"><span class="fas fa-user-plus"></span> Trabalhe Conosco</a></li>
@@ -107,46 +49,57 @@
                     <li class="nav-item"><a href="{% url 'admin:index' %}" class="nav-link"><span class="fas fa-lock"></span> Área Administrativa</a></li>
                 </ul>
                 
-                <!-- Botão para alternar tema que será controlado pelos templates filhos -->
-                {% block theme_button %}
-                <button class="theme-toggle">
+                <!-- Botão para alternar tema -->
+                <button class="botao-tema" id="botao-tema">
                     <span class="fas fa-moon"></span>
-                    <span class="toggle-text">Mudar Tema</span>
+                    <span class="texto-tema">Mudar Tema</span>
                 </button>
-                {% endblock %}
             </nav>
         </div>
     </header>
     
-    <!-- Conteúdo dinâmico -->
-    {% block conteudo %}{% endblock %}
+    <!-- Mensagens do sistema -->
+    {% if messages %}
+    <div class="mensagens container mt-3">
+        {% for message in messages %}
+        <div class="alerta alerta-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Conteúdo principal -->
+    <main>
+        {% block conteudo %}{% endblock %}
+    </main>
 
     <!-- Rodapé -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <div class="footer-logo">
+    <footer class="rodape">
+        <div class="rodape-container">
+            <div class="rodape-info">
+                <div class="rodape-logo">
                     <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo AutoIta">
                     <h3>AutoIta Peças e Acessórios</h3>
                 </div>
                 
-                <div class="footer-contact">
-                    <div class="contact-item">
+                <div class="rodape-contato">
+                    <div class="item-contato">
                         <span class="fas fa-map-marker-alt"></span>
                         <span>Rua Frei Caneca Nº2455, Centro, Itararé SP</span>
                     </div>
-                    <div class="contact-item">
+                    <div class="item-contato">
                         <span class="fas fa-phone"></span>
                         <span>(15) 3531-2467 | (15) 99690-7899</span>
                     </div>
-                    <div class="contact-item">
+                    <div class="item-contato">
                         <span class="fas fa-envelope"></span>
                         <span>autoitapecas@gmail.com</span>
                     </div>
                 </div>
             </div>
             
-            <div class="footer-links">
+            <div class="rodape-links">
                 <h4>Links Rápidos</h4>
                 <ul>
                     <li><a href="/homepage">Página Inicial</a></li>
@@ -156,89 +109,28 @@
                 </ul>
             </div>
             
-            <div class="footer-social">
+            <div class="rodape-social">
                 <h4>Horário de Funcionamento</h4>
                 <p>Segunda a Sexta: 8:00h - 18:00h</p>
                 <p>Sábados: 8:00h - 12:00h</p>
                 
-                <div class="social-links">
-                    <a href="#" class="social-link"><span class="fab fa-facebook"></span></a>
-                    <a href="#" class="social-link"><span class="fab fa-instagram"></span></a>
-                    <a href="#" class="social-link"><span class="fab fa-whatsapp"></span></a>
+                <div class="links-sociais">
+                    <a href="#" class="link-social"><span class="fab fa-facebook"></span></a>
+                    <a href="#" class="link-social"><span class="fab fa-instagram"></span></a>
+                    <a href="#" class="link-social"><span class="fab fa-whatsapp"></span></a>
                 </div>
             </div>
         </div>
         
-        <div class="footer-bottom">
-            <p>&copy; 2025 AutoIta Peças e Acessórios. Todos os direitos reservados.</p>
+        <div class="rodape-base">
+            <p>&copy; {% now "Y" %} AutoIta Peças e Acessórios. Todos os direitos reservados.</p>
         </div>
     </footer>
     
-    <!-- Script para controle de temas -->
-    <script>
-        // Função para configurar a alternância de tema
-        function setupThemeToggle(themeSelector, lightTheme, darkTheme) {
-            const botao = document.querySelector(".theme-toggle");
-            const tema = document.querySelector(themeSelector);
-            
-            if (!botao || !tema) return;
-            
-            function applyInitialTheme() {
-                const currentTheme = localStorage.getItem("theme");
-                const moonIcon = document.querySelector('.theme-toggle .fa-moon');
-                const sunIcon = document.querySelector('.theme-toggle .fa-sun');
-                
-                if (currentTheme === "dark") {
-                    tema.href = darkTheme;
-                    if (moonIcon) moonIcon.classList.replace('fa-moon', 'fa-sun');
-                } else {
-                    tema.href = lightTheme;
-                    if (sunIcon) sunIcon.classList.replace('fa-sun', 'fa-moon');
-                }
-            }
-            
-            applyInitialTheme();
-            
-            botao.addEventListener("click", function() {
-                const icon = botao.querySelector('.fas');
-                
-                if (tema.getAttribute("href") == lightTheme) {
-                    tema.href = darkTheme;
-                    localStorage.setItem("theme", "dark");
-                    icon.classList.replace('fa-moon', 'fa-sun');
-                } else {
-                    tema.href = lightTheme;
-                    localStorage.setItem("theme", "light");
-                    icon.classList.replace('fa-sun', 'fa-moon');
-                }
-            });
-        }
-        
-        // Menu mobile toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.mobile-menu-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            
-            if (menuToggle && navMenu) {
-                menuToggle.addEventListener('click', function() {
-                    navMenu.classList.toggle('active');
-                    menuToggle.classList.toggle('active');
-                    
-                    const icon = menuToggle.querySelector('.fas');
-                    if (icon.classList.contains('fa-bars')) {
-                        icon.classList.replace('fa-bars', 'fa-times');
-                    } else {
-                        icon.classList.replace('fa-times', 'fa-bars');
-                    }
-                });
-            }
-            
-            // Executa o script específico da página
-            {% block theme_script %}{% endblock %}
-        });
-    </script>
+    <!-- Script gerenciador de tema -->
+    <script src="{% static 'js/gerenciador-tema.js' %}"></script>
     
     <!-- Scripts adicionais por página -->
-    {% block extra_scripts %}{% endblock %}
+    {% block scripts %}{% endblock %}
 </body>
 </html>

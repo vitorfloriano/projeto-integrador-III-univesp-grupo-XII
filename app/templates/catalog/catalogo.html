@@ -3,29 +3,24 @@
 
 {% block title %}Catálogo de Peças | AutoIta{% endblock %}
 
-{% block style_links %}
-<link rel="stylesheet" href="{% static 'css/CatalogCSS.css' %}">
-<link rel="stylesheet" href="{% static 'temas/claro/claroCatalog.css' %}" id="temas">
-{% endblock %}
-
-{% block theme_script %}
-setupThemeToggle("#temas", "{% static 'temas/claro/claroCatalog.css' %}", "{% static 'temas/escuro/escuroCatalog.css' %}");
+{% block css_pagina %}
+<link rel="stylesheet" href="{% static 'css/paginas/catalogo.css' %}">
 {% endblock %}
 
 {% block conteudo %}
-<div class="catalog-container">
-    <div class="catalog-header">
+<div class="catalogo-container">
+    <div class="catalogo-cabecalho">
         <h1>Catálogo de Peças Automotivas</h1>
-        <p class="catalog-subtitle">Encontre as melhores peças para o seu veículo com qualidade e garantia</p>
+        <p class="catalogo-subtitulo">Encontre as melhores peças para o seu veículo com qualidade e garantia</p>
     </div>
 
-    <div class="controls-container">
-        <form id="filter-form" method="GET" action="{% url 'catalogo' %}" class="filter-form">
-            <div class="filters">
-                <div class="filter-group">
-                    <div class="filter-item">
+    <div class="controles-container {% if selected_categoria or selected_marca or search_term %}filtro-ativo{% endif %}">
+        <form id="formulario-filtro" method="GET" action="{% url 'catalogo' %}" class="formulario-filtro">
+            <div class="filtros">
+                <div class="grupo-filtro">
+                    <div class="item-filtro">
                         <label for="categoria">Categoria:</label>
-                        <select id="categoria" name="categoria" class="filter-select">
+                        <select id="categoria" name="categoria" class="select-filtro">
                             <option value="">Todas as categorias</option>
                             {% for categoria in categorias %}
                             <option value="{{ categoria.id_categoria }}" {% if selected_categoria == categoria.id_categoria|stringformat:"i" %}selected{% endif %}>{{ categoria.nome_categoria }}</option>
@@ -33,9 +28,9 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroCatalog.css' %}", "{% st
                         </select>
                     </div>
 
-                    <div class="filter-item">
+                    <div class="item-filtro">
                         <label for="marca">Marca:</label>
-                        <select id="marca" name="marca" class="filter-select">
+                        <select id="marca" name="marca" class="select-filtro">
                             <option value="">Todas as marcas</option>
                             {% for marca in marcas %}
                             <option value="{{ marca.id_marca }}" {% if selected_marca == marca.id_marca|stringformat:"i" %}selected{% endif %}>{{ marca.nome_marca }}</option>
@@ -44,31 +39,31 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroCatalog.css' %}", "{% st
                     </div>
                 </div>
 
-                <div class="search-group">
-                    <div class="search-bar">
-                        <input type="text" id="search-input" name="search" placeholder="Buscar peças..." value="{{ search_term }}">
-                        <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
+                <div class="grupo-busca">
+                    <div class="barra-busca">
+                        <input type="text" id="campo-busca" name="search" placeholder="Buscar peças..." value="{{ search_term }}">
+                        <button type="submit" class="botao-busca"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
             
-            <div class="filter-actions">
-                <button type="submit" class="btn btn-filter">Aplicar Filtros</button>
-                <a href="{% url 'catalogo' %}" class="btn btn-reset">Limpar Filtros</a>
+            <div class="acoes-filtro">
+                <button type="submit" class="botao botao-primario botao-filtrar">Aplicar Filtros</button>
+                <a href="{% url 'catalogo' %}" class="botao botao-secundario botao-limpar">Limpar Filtros</a>
             </div>
         </form>
     </div>
 
     <div class="produtos-container">
-        <div class="produtos" id="produtos-container">
+        <div class="produtos-grid" id="produtos-container">
             {% for produto in produtos %}
             <div class="produto-card">
-                <div class="produto-header">
+                <div class="produto-cabecalho">
                     <h3 class="produto-titulo">{{ produto.nome }}</h3>
                     <span class="produto-categoria">{{ produto.id_categoria.nome_categoria }}</span>
                 </div>
                 
-                <div class="produto-content">
+                <div class="produto-conteudo">
                     <p class="produto-desc">{{ produto.descricao|truncatechars:100 }}</p>
                     <div class="produto-info">
                         <span class="produto-marca"><i class="fa fa-tag"></i> {{ produto.id_marca.nome_marca }}</span>
@@ -81,16 +76,16 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroCatalog.css' %}", "{% st
                     </div>
                 </div>
                 
-                <div class="produto-footer">
-                    <a href="#" class="btn-produto">Mais Detalhes</a>
+                <div class="produto-rodape">
+                    <a href="#" class="botao-produto">Mais Detalhes</a>
                 </div>
             </div>
             {% empty %}
-            <div class="no-products-container">
-                <div class="no-products-message">
+            <div class="sem-produtos-container">
+                <div class="mensagem-sem-produtos">
                     <i class="fa fa-search-minus"></i>
                     <p>Nenhum produto encontrado com os filtros selecionados.</p>
-                    <a href="{% url 'catalogo' %}" class="btn-clear-search">Limpar Busca</a>
+                    <a href="{% url 'catalogo' %}" class="botao-limpar-busca">Limpar Busca</a>
                 </div>
             </div>
             {% endfor %}
@@ -99,18 +94,9 @@ setupThemeToggle("#temas", "{% static 'temas/claro/claroCatalog.css' %}", "{% st
 </div>
 {% endblock %}
 
-{% block extra_scripts %}
+{% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Destacar controles quando filtros estiverem ativos
-        const categoria = document.getElementById('categoria');
-        const marca = document.getElementById('marca');
-        const searchInput = document.getElementById('search-input');
-        
-        if (categoria.value || marca.value || searchInput.value) {
-            document.querySelector('.controls-container').classList.add('active-filter');
-        }
-        
         // Animação de entrada para os cards de produtos
         const cards = document.querySelectorAll('.produto-card');
         cards.forEach((card, index) => {

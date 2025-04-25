@@ -1,0 +1,242 @@
+/* 
+ * PÁGINA DE FORMULÁRIO (TRABALHE CONOSCO)
+ * Estilos específicos para a página de formulário de trabalhe conosco.
+ */
+
+/* Container principal */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: var(--fonte-principal);
+}
+
+.caixa {
+  background-color: var(--cor-fundo-formulario);
+  border-radius: var(--raio-borda-medio);
+  padding: 2.5rem;
+  box-shadow: var(--sombra-suave);
+  flex: 1;
+  min-width: 320px;
+}
+
+.caixa h1 {
+  color: var(--cor-titulo);
+  font-size: var(--tamanho-titulo-pequeno);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.caixa h1:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: var(--cor-primaria);
+  border-radius: 2px;
+}
+
+/* Estilos do formulário */
+.caixa form {
+  margin-top: 2rem;
+}
+
+.caixa fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.caixa p {
+  font-weight: var(--peso-fonte-semi-negrito);
+  margin-bottom: 0.5rem;
+  color: var(--cor-label);
+}
+
+.caixa input[type="text"],
+.caixa input[type="email"],
+.caixa input[type="date"],
+.caixa textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1.2rem;
+  background-color: var(--cor-fundo-input);
+  border: 1px solid var(--cor-borda-input);
+  border-radius: var(--raio-borda-pequeno);
+  font-size: var(--tamanho-texto-normal);
+  color: var(--cor-texto-input);
+  transition: var(--transicao-padrao);
+  font-family: var(--fonte-principal);
+}
+
+.caixa input[type="text"]:focus,
+.caixa input[type="email"]:focus,
+.caixa input[type="date"]:focus,
+.caixa textarea:focus {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(205,24,24,0.1);
+  outline: none;
+}
+
+.caixa input[type="text"]:hover,
+.caixa input[type="email"]:hover,
+.caixa input[type="date"]:hover,
+.caixa textarea:hover {
+  background-color: var(--cor-fundo-hover);
+}
+
+.caixa textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* Grupo de checkbox */
+.grupo-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.item-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.item-checkbox input[type="radio"] {
+  accent-color: var(--cor-primaria);
+  cursor: pointer;
+}
+
+.item-checkbox label {
+  color: var(--cor-texto);
+  cursor: pointer;
+}
+
+/* Botão de enviar */
+#enviar {
+  background-color: var(--cor-botao-primario);
+  color: var(--cor-texto-botao-primario);
+  border: none;
+  border-radius: var(--raio-borda-circular);
+  padding: 14px 28px;
+  cursor: pointer;
+  font-weight: var(--peso-fonte-negrito);
+  font-size: var(--tamanho-texto-normal);
+  transition: var(--transicao-padrao);
+  display: block;
+  margin: 2rem auto 0.5rem;
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#enviar:hover {
+  background-color: var(--cor-primaria-escura);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* Box lateral */
+.caixa2 {
+  background: linear-gradient(135deg, var(--cor-secundaria) 0%, var(--cor-primaria) 100%);
+  color: var(--cor-branco);
+  border-radius: var(--raio-borda-medio);
+  padding: 2.5rem;
+  box-shadow: var(--sombra-media);
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.caixa2 h2 {
+  color: var(--cor-branco);
+  font-size: var(--tamanho-titulo-pequeno);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.caixa2 h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: var(--cor-branco);
+  border-radius: 2px;
+}
+
+.texto-formulario {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.logo-formulario {
+  text-align: center;
+  margin-top: auto;
+}
+
+.logo-formulario img {
+  max-width: 180px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+  transition: transform 0.3s ease;
+}
+
+.logo-formulario img:hover {
+  transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+  main {
+    flex-direction: column-reverse;
+  }
+
+  .caixa, .caixa2 {
+    width: 100%;
+    min-width: 100%;
+  }
+  
+  .caixa2 {
+    margin-bottom: -1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .caixa, .caixa2 {
+    padding: 2rem 1.5rem;
+  }
+  
+  #enviar {
+    width: 100%;
+  }
+  
+  .grupo-checkbox {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .caixa, .caixa2 {
+    padding: 1.5rem 1rem;
+  }
+  
+  .caixa h1, .caixa2 h2 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,72 @@
+/**
+ * VARIÁVEIS CSS
+ * Sistema de design consistente para toda a aplicação
+ * Valores de base que serão sobrescritos pelos temas específicos
+ */
+
+:root {
+  /* Tipografia */
+  --fonte-principal: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --fonte-secundaria: 'Inter', Arial, sans-serif;
+  
+  /* Tamanhos de Fonte */
+  --tamanho-texto-pequeno: 0.875rem;    /* 14px */
+  --tamanho-texto-normal: 1rem;         /* 16px */
+  --tamanho-texto-medio: 1.125rem;      /* 18px */
+  --tamanho-texto-grande: 1.25rem;      /* 20px */
+  --tamanho-subtitulo: 1.5rem;          /* 24px */
+  --tamanho-titulo-pequeno: 1.75rem;    /* 28px */
+  --tamanho-titulo-medio: 2rem;         /* 32px */
+  --tamanho-titulo-grande: 2.5rem;      /* 40px */
+  
+  /* Pesos de Fonte */
+  --peso-fonte-normal: 400;
+  --peso-fonte-medio: 500;
+  --peso-fonte-semi-negrito: 600;
+  --peso-fonte-negrito: 700;
+  
+  /* Espaçamentos */
+  --espaco-minimo: 0.25rem;   /* 4px */
+  --espaco-pequeno: 0.5rem;   /* 8px */
+  --espaco-medio: 1rem;       /* 16px */
+  --espaco-grande: 1.5rem;    /* 24px */
+  --espaco-extra: 2rem;       /* 32px */
+  --espaco-duplo: 3rem;       /* 48px */
+  
+  /* Bordas */
+  --borda-fina: 1px;
+  --borda-media: 2px;
+  --borda-grossa: 4px;
+  --raio-borda-pequeno: 4px;
+  --raio-borda-medio: 8px;
+  --raio-borda-grande: 16px;
+  --raio-borda-redondo: 50px;
+  --raio-borda-circular: 50%;
+  
+  /* Z-index */
+  --z-index-abaixo: -1;
+  --z-index-normal: 1;
+  --z-index-elevado: 10;
+  --z-index-topo: 100;
+  --z-index-modal: 1000;
+  --z-index-header: 999;
+  --z-index-maximo: 9999;
+  
+  /* Breakpoints (para referência, usar em media queries) */
+  --breakpoint-celular: 480px;
+  --breakpoint-tablet-pequeno: 576px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop-pequeno: 992px;
+  --breakpoint-desktop: 1200px;
+  
+  /* Larguras de Container */
+  --largura-maxima: 1200px;
+  --largura-media: 992px;
+  --largura-pequena: 768px;
+  --largura-minima: 576px;
+
+  /* Transições */
+  --transicao-rapida: all 0.2s ease;
+  --transicao-padrao: all 0.3s ease;
+  --transicao-lenta: all 0.5s ease;
+}

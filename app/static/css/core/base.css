@@ -1,0 +1,158 @@
+/**
+ * ESTILOS BASE
+ * Estilos fundamentais para toda a aplicação
+ */
+
+/* Importação de fontes */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Importação de variáveis e outros componentes core */
+@import url('variaveis.css');
+
+/* Normalização e reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: var(--fonte-principal);
+  font-size: var(--tamanho-texto-normal);
+  line-height: 1.6;
+  color: var(--cor-texto);
+  background-color: var(--cor-fundo-pagina);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transicao-padrao);
+}
+
+/* Elementos básicos */
+a {
+  color: var(--cor-primaria);
+  text-decoration: none;
+  transition: var(--transicao-rapida);
+}
+
+a:hover {
+  color: var(--cor-primaria-escura);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--peso-fonte-negrito);
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+  color: var(--cor-titulo);
+}
+
+h1 {
+  font-size: var(--tamanho-titulo-grande);
+}
+
+h2 {
+  font-size: var(--tamanho-titulo-medio);
+}
+
+h3 {
+  font-size: var(--tamanho-titulo-pequeno);
+}
+
+h4 {
+  font-size: var(--tamanho-subtitulo);
+}
+
+h5 {
+  font-size: var(--tamanho-texto-grande);
+  font-weight: var(--peso-fonte-semi-negrito);
+}
+
+h6 {
+  font-size: var(--tamanho-texto-medio);
+  font-weight: var(--peso-fonte-semi-negrito);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style-position: inside;
+  margin-bottom: 1rem;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Conteúdo principal */
+main {
+  flex: 1;
+  width: 100%;
+  margin-top: 90px; /* Ajustar baseado na altura do cabeçalho */
+}
+
+/* Foco acessível */
+:focus {
+  outline: 3px solid rgba(205, 24, 24, 0.5);
+  outline-offset: 2px;
+}
+
+/* Utilidades de acessibilidade */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Responsividade base */
+@media (max-width: 992px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  main {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+  
+  h1 {
+    font-size: calc(var(--tamanho-titulo-grande) * 0.85);
+  }
+  
+  h2 {
+    font-size: calc(var(--tamanho-titulo-medio) * 0.85);
+  }
+}
