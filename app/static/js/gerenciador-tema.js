@@ -1,68 +1,100 @@
 /**
- * Gerenciador de Tema
- * Script para gerenciar a alternância entre tema claro e escuro
+ * Gerenciador de Temas
+ * Script para controlar a alternância entre tema claro e escuro
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Função para aplicar o tema
-    function aplicarTema(tema) {
-        // Caminho base para os arquivos CSS
-        const baseUrl = '/static/css/temas/';
+(function() {
+    // Constantes para os temas
+    const TEMA_CLARO = 'tema-claro';
+    const TEMA_ESCURO = 'tema-escuro';
+    const TEMA_CHAVE = 'autoita-tema-preferido';
+    
+    // Elementos DOM
+    const btnTema = document.getElementById('botao-tema');
+    const temaAtual = document.getElementById('tema-atual');
+    const iconeTemaBotao = btnTema ? btnTema.querySelector('span.fas') : null;
+    const textoTemaBotao = btnTema ? btnTema.querySelector('.texto-tema') : null;
+    
+    // Detecta se o sistema do usuário prefere tema escuro
+    const prefereEscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Obtém o tema dos cookies ou usa o padrão baseado na preferência do sistema
+    const getTemaAtual = () => {
+        const temaSalvo = localStorage.getItem(TEMA_CHAVE);
+        return temaSalvo || (prefereEscuro ? TEMA_ESCURO : TEMA_CLARO);
+    };
+    
+    // Aplica um tema específico
+    const aplicarTema = (tema) => {
+        if (!temaAtual) return;
         
-        // Define o caminho do arquivo de tema
-        const temaCssUrl = `${baseUrl}tema-${tema}.css`;
-        
-        // Atualiza o link de referência CSS
-        let linkTema = document.getElementById('link-tema');
-        if (linkTema) {
-            linkTema.href = temaCssUrl;
-        } else {
-            // Se o link ainda não existe, cria um novo
-            const novoLink = document.createElement('link');
-            novoLink.rel = 'stylesheet';
-            novoLink.id = 'link-tema';
-            novoLink.href = temaCssUrl;
-            document.head.appendChild(novoLink);
-        }
+        // Atualiza o link de CSS
+        temaAtual.href = `/static/css/temas/${tema}.css`;
         
         // Atualiza o ícone e texto do botão
-        const iconeTema = document.querySelector('.botao-tema span:first-child');
-        const textoTema = document.querySelector('.texto-tema');
-        
-        if (iconeTema && textoTema) {
-            if (tema === 'escuro') {
-                iconeTema.className = 'fas fa-sun';
-                textoTema.textContent = 'Tema Claro';
-                document.body.classList.add('tema-escuro');
-                document.body.classList.remove('tema-claro');
+        if (iconeTemaBotao && textoTemaBotao) {
+            if (tema === TEMA_ESCURO) {
+                iconeTemaBotao.classList.remove('fa-moon');
+                iconeTemaBotao.classList.add('fa-sun');
+                textoTemaBotao.textContent = 'Tema Claro';
             } else {
-                iconeTema.className = 'fas fa-moon';
-                textoTema.textContent = 'Tema Escuro';
-                document.body.classList.add('tema-claro');
-                document.body.classList.remove('tema-escuro');
+                iconeTemaBotao.classList.remove('fa-sun');
+                iconeTemaBotao.classList.add('fa-moon');
+                textoTemaBotao.textContent = 'Tema Escuro';
             }
         }
         
+        // Adiciona classes ao data-theme no HTML para permitir estilizações específicas
+        document.documentElement.setAttribute('data-theme', tema);
+        
         // Salva a preferência do usuário
-        localStorage.setItem('tema', tema);
-    }
+        localStorage.setItem(TEMA_CHAVE, tema);
+        
+        // Dispara um evento personalizado para notificar outros scripts
+        document.dispatchEvent(new CustomEvent('temaAlterado', { detail: { tema } }));
+    };
     
-    const botaoTema = document.querySelector('.botao-tema');
+    // Alternar entre os temas
+    const alternarTema = () => {
+        const temaAtual = getTemaAtual();
+        const novoTema = temaAtual === TEMA_CLARO ? TEMA_ESCURO : TEMA_CLARO;
+        aplicarTema(novoTema);
+        
+        // Adiciona animação sutil de transição na página
+        document.body.classList.add('tema-transicao');
+        setTimeout(() => {
+            document.body.classList.remove('tema-transicao');
+        }, 300);
+    };
     
-    // Verifica o tema atual armazenado (ou usa claro como padrão)
-    const temaInicial = localStorage.getItem('tema') || 'claro';
-    
-    // Aplica o tema inicial
-    aplicarTema(temaInicial);
-    
-    // Adiciona evento de clique no botão de tema
-    if (botaoTema) {
-        botaoTema.addEventListener('click', function() {
-            // Obtém o tema atual antes de alternar
-            const temaAtual = localStorage.getItem('tema') || 'claro';
-            // Alterna entre temas claro e escuro
-            const novoTema = temaAtual === 'claro' ? 'escuro' : 'claro';
-            aplicarTema(novoTema);
+    // Inicializa o tema
+    const inicializarTema = () => {
+        // Aplica o tema inicial
+        aplicarTema(getTemaAtual());
+        
+        // Adiciona o listener para o botão de alternar tema
+        if (btnTema) {
+            btnTema.addEventListener('click', alternarTema);
+        }
+        
+        // Escuta por mudanças na preferência do sistema
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem(TEMA_CHAVE)) {
+                    // Se o usuário não salvou uma preferência, siga o sistema
+                    aplicarTema(e.matches ? TEMA_ESCURO : TEMA_CLARO);
+                }
+            });
+        }
+        
+        // Adiciona classe para habilitar transições após o carregamento
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('transicoes-ativas');
+            }, 300);
         });
-    }
-});
+    };
+    
+    // Inicia o script
+    inicializarTema();
+})();
