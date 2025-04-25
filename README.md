@@ -47,10 +47,6 @@ python -m venv venv
 # Ative o ambiente virtual
 # No Linux/Mac:
 source venv/bin/activate
-# No Windows:
-venv\Scripts\activate
-# No PowerShell:
-venv\Scripts\Activate.ps1
 
 # Instale as dependências
 pip install -r requirements.txt
@@ -96,10 +92,6 @@ fuser -k 8000/tcp
      ```bash
      source venv/bin/activate
      ```
-   - No Windows:
-     ```bash
-     venv\Scripts\activate
-     ```
 5. Instale as dependências necessárias:
    ```bash
    pip install -r requirements.txt
@@ -127,7 +119,7 @@ fuser -k 8000/tcp
 O projeto inclui testes automatizados para garantir o funcionamento correto das funcionalidades:
 
 ```bash
-python manage.py test
+pytest
 ```
 
 ## Estrutura da Aplicação
@@ -148,6 +140,8 @@ python manage.py test
 - `app/api_urls.py`: URLs da API REST
 - `app/serializers.py`: Serializadores para a API REST
 - `deployment/`: Scripts e configurações para implantação
+- `.github/workflows/`: Configurações de workflows do GitHub Actions
+- `tests/`: Testes automatizados
 
 ## Modelos de Dados
 
@@ -210,8 +204,11 @@ POST /api/produtos/<produto_id>/saida-estoque/
 
 ## Contribuindo
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adicionando nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+1. Abra uma issue no repositório para descrever o problema ou a funcionalidade que você está trabalhando.
+2. Crie uma branch a partir da issue. O nome da branch deve idealmente referenciar o número da issue.
+3. Faça suas alterações na nova branch e faça commit delas.
+4. Envie a branch para o repositório.
+5. Abra um pull request da sua branch para a branch principal.
+6. Na descrição do pull request, inclua a frase `close #issue_number` onde `issue_number` é o número da issue que você deseja fechar. Isso fechará automaticamente a issue quando o pull request for mesclado.
+
+Por exemplo, se o número da issue for 42, você escreveria `close #42` na descrição do pull request.
