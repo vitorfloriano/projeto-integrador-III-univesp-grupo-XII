@@ -1,0 +1,159 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Sistema AutoIta') }}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/core/variaveis.css' %}">
+<link rel="stylesheet" href="{% static 'css/temas/tema-claro.css' %}" id="tema-atual">
+<link rel="stylesheet" href="{% static 'css/admin/admin.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" 
+      crossorigin="anonymous">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <img src="{% static 'imagens/logo_autoita-semfundo.png' %}" alt="Logo AutoIta">
+    <span>{{ site_header|default:_('Administração AutoIta') }}</span>
+</h1>
+{% endblock %}
+
+{% block userlinks %}
+{{ block.super }}
+<button class="theme-switcher" id="botao-tema" title="Alternar tema claro/escuro">
+  <span class="fas fa-moon"></span>
+  <span class="theme-text">Tema</span>
+</button>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<script src="{% static 'js/gerenciador-tema.js' %}"></script>
+<script>
+// Script para melhorar a experiência de usuário nas páginas admin
+document.addEventListener('DOMContentLoaded', function() {
+  // Adicionar ícones aos links e botões principais do admin
+  const addIcons = () => {
+    // Adiciona ícones no dashboard
+    const appLinks = document.querySelectorAll('.app-auth a, .app-app a');
+    appLinks.forEach(link => {
+      // Adicionar ícones com base no texto do link
+      if (link.textContent.includes('Usuário')) {
+        link.innerHTML = '<i class="fas fa-user fa-fw mr-1"></i> ' + link.textContent;
+      } else if (link.textContent.includes('Grupo')) {
+        link.innerHTML = '<i class="fas fa-users fa-fw mr-1"></i> ' + link.textContent;
+      } else if (link.textContent.includes('Produtos') || link.textContent.includes('Peças')) {
+        link.innerHTML = '<i class="fas fa-box fa-fw mr-1"></i> ' + link.textContent;
+      } else if (link.textContent.includes('Categoria')) {
+        link.innerHTML = '<i class="fas fa-tag fa-fw mr-1"></i> ' + link.textContent;
+      } else if (link.textContent.includes('Marca')) {
+        link.innerHTML = '<i class="fas fa-copyright fa-fw mr-1"></i> ' + link.textContent;
+      } else if (link.textContent.includes('Contato')) {
+        link.innerHTML = '<i class="fas fa-envelope fa-fw mr-1"></i> ' + link.textContent;
+      }
+    });
+    
+    // Adiciona ícones nos botões de ação
+    const addButton = document.querySelector('.addlink');
+    if (addButton) {
+      addButton.innerHTML = '<i class="fas fa-plus fa-fw mr-1"></i> ' + addButton.textContent;
+    }
+    
+    // Adiciona ícones nos botões de submissão
+    const saveButton = document.querySelector('input[name="_save"]');
+    if (saveButton) {
+      const saveBtn = document.createElement('button');
+      saveBtn.setAttribute('type', 'submit');
+      saveBtn.setAttribute('name', '_save');
+      saveBtn.setAttribute('class', 'default');
+      saveBtn.innerHTML = '<i class="fas fa-save fa-fw mr-1"></i> Salvar';
+      saveButton.parentNode.replaceChild(saveBtn, saveButton);
+    }
+  };
+  
+  // Tentativa de adicionar ícones após o carregamento
+  setTimeout(addIcons, 100);
+});
+</script>
+<style>
+  /* Estilos para botões e links de user-tools */
+  .theme-switcher {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--header-link-color);
+    border: none;
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+  }
+  
+  .theme-switcher:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .mr-1 {
+    margin-right: 0.5rem;
+  }
+  
+  /* Tornar mais visível o item selecionado no menu lateral */
+  #nav-sidebar .current-app .section:link,
+  #nav-sidebar .current-app .section:visited {
+    border-left-color: var(--cor-primaria);
+  }
+  
+  /* Estilizar cabeçalhos das tabelas */
+  thead th {
+    background: linear-gradient(to bottom, 
+      var(--cor-fundo-secao-alt), 
+      var(--cor-fundo-secao-alt)
+    );
+  }
+  
+  /* Melhorar estilo do botão de salvar */
+  .submit-row button.default {
+    background-color: var(--cor-primaria);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.625rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+  }
+  
+  .submit-row button.default:hover {
+    background-color: var(--cor-primaria-escura);
+    box-shadow: 0 2px 8px rgba(255, 77, 79, 0.25);
+    transform: translateY(-1px);
+  }
+  
+  /* Ajuste do logo no cabeçalho */
+  #branding img {
+    height: 32px;
+    width: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .theme-text {
+      display: none;
+    }
+    
+    #header {
+      padding: 0.75rem 1rem;
+    }
+  }
+</style>
+{% endblock %}
