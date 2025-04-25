@@ -42,24 +42,84 @@ O projeto pode ser executado de várias maneiras, dependendo do seu ambiente e n
 
 ```bash
 # Crie um ambiente virtual
-python -m venv projeto
+python -m venv venv
 
 # Ative o ambiente virtual
 # No Linux/Mac:
-source projeto/bin/activate
+source venv/bin/activate
 # No Windows:
-projeto\Scripts\activate
+venv\Scripts\activate
 # No PowerShell:
-projeto\Scripts\Activate.ps1
+venv\Scripts\Activate.ps1
 
 # Instale as dependências
 pip install -r requirements.txt
 
 # Aplique as migrações
+python manage.py makemigrations
 python manage.py migrate
 
 # Execute o servidor de desenvolvimento
 python manage.py runserver
+```
+
+#### Lidando com problemas de porta
+
+Se você encontrar o erro "port already in use", use o seguinte comando para liberar a porta:
+
+```bash
+fuser -k 8000/tcp
+```
+
+### 2. Usando GitHub Codespaces
+
+#### Prerequisites
+
+- Acesso ao GitHub Codespaces e permissões necessárias para criar um codespace para este repositório.
+
+#### Criando um Codespace
+
+1. Navegue até o repositório no GitHub.
+2. Clique no botão `Code` e selecione `Open with Codespaces`.
+3. Clique em `New codespace` para criar um novo codespace para este repositório.
+
+#### Configurando o ambiente
+
+1. Uma vez criado o codespace, ele abrirá automaticamente em um ambiente VS Code baseado na web.
+2. Abra o terminal no codespace.
+3. Crie um ambiente virtual chamado `venv`:
+   ```bash
+   python -m venv venv
+   ```
+4. Ative o ambiente virtual:
+   - No Linux/Mac:
+     ```bash
+     source venv/bin/activate
+     ```
+   - No Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+5. Instale as dependências necessárias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+6. Aplique as migrações do banco de dados:
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+7. Inicie o servidor de desenvolvimento:
+   ```bash
+   python manage.py runserver
+   ```
+
+#### Lidando com problemas de porta
+
+Se você encontrar o erro "port already in use", use o seguinte comando para liberar a porta:
+
+```bash
+fuser -k 8000/tcp
 ```
 
 ## Executando testes
@@ -105,6 +165,48 @@ O sistema é composto pelos seguintes modelos principais:
 - Controle de permissões baseado em autenticação
 - Endpoints para gestão de estoque (entrada/saída)
 - Documentação completa de todos os endpoints
+
+## Exemplos de Uso da API
+
+### Filtrando Produtos
+
+#### Por Categoria
+
+```bash
+GET /api/produtos/?categoria=<categoria_id>
+```
+
+#### Por Marca
+
+```bash
+GET /api/produtos/?marca=<marca_id>
+```
+
+#### Por Nome
+
+```bash
+GET /api/produtos/?nome=<nome>
+```
+
+### Gerenciamento de Estoque
+
+#### Entrada de Estoque
+
+```bash
+POST /api/produtos/<produto_id>/entrada-estoque/
+{
+  "quantidade": <quantidade>
+}
+```
+
+#### Saída de Estoque
+
+```bash
+POST /api/produtos/<produto_id>/saida-estoque/
+{
+  "quantidade": <quantidade>
+}
+```
 
 ## Contribuindo
 
