@@ -47,10 +47,6 @@ python -m venv venv
 # Ative o ambiente virtual
 # No Linux/Mac:
 source venv/bin/activate
-# No Windows:
-venv\Scripts\activate
-# No PowerShell:
-venv\Scripts\Activate.ps1
 
 # Instale as dependências
 pip install -r requirements.txt
@@ -96,10 +92,6 @@ fuser -k 8000/tcp
      ```bash
      source venv/bin/activate
      ```
-   - No Windows:
-     ```bash
-     venv\Scripts\activate
-     ```
 5. Instale as dependências necessárias:
    ```bash
    pip install -r requirements.txt
@@ -127,7 +119,7 @@ fuser -k 8000/tcp
 O projeto inclui testes automatizados para garantir o funcionamento correto das funcionalidades:
 
 ```bash
-python manage.py test
+pytest
 ```
 
 ## Estrutura da Aplicação
@@ -148,6 +140,8 @@ python manage.py test
 - `app/api_urls.py`: URLs da API REST
 - `app/serializers.py`: Serializadores para a API REST
 - `deployment/`: Scripts e configurações para implantação
+- `.github/workflows/`: Configurações de workflows do GitHub Actions
+- `tests/`: Testes automatizados
 
 ## Modelos de Dados
 
