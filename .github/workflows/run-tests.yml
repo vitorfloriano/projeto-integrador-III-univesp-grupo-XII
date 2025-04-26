@@ -43,7 +43,18 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET_KEY || 'dummy-secret-key-for-tests' }}
         DEBUG: 'True'
       run: |
-        pytest tests/ -v --cov=app --cov-report=xml
+        pytest tests/ -v --cov=app --cov-report=xml --cov-report=html
+    
+    - name: Verify coverage files
+      run: |
+        if [ ! -f .coverage ]; then
+          echo "Error: .coverage file not found!"
+          exit 1
+        fi
+        if [ ! -d htmlcov ]; then
+          echo "Error: htmlcov directory not found!"
+          exit 1
+        fi
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
