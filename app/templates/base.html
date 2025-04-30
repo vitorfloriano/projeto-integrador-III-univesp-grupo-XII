@@ -27,6 +27,9 @@
           crossorigin="anonymous">
 </head>
 <body>
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="sr-only sr-only-focusable">Pular para o conteúdo principal</a>
+
     <!-- Cabeçalho -->
     <header class="cabecalho">
         <div class="cabecalho-container">
@@ -40,17 +43,17 @@
                 <span class="fas fa-bars"></span>
             </button>
             
-            <nav class="nav-menu">
+            <nav class="nav-menu" aria-label="Menu de Navegação">
                 <ul class="nav-lista">
-                    <li class="nav-item"><a href="/homepage" class="nav-link"><span class="fas fa-home"></span> Página Inicial</a></li>
-                    <li class="nav-item"><a href="/catalogo" class="nav-link"><span class="fas fa-list"></span> Catálogo de Peças</a></li>
-                    <li class="nav-item"><a href="/forms" class="nav-link"><span class="fas fa-user-plus"></span> Trabalhe Conosco</a></li>
-                    <li class="nav-item"><a href="/contato" class="nav-link"><span class="fas fa-phone"></span> Contato</a></li>
-                    <li class="nav-item"><a href="{% url 'admin:index' %}" class="nav-link"><span class="fas fa-lock"></span> Área Administrativa</a></li>
+                    <li class="nav-item"><a href="/homepage" class="nav-link" aria-label="Página Inicial"><span class="fas fa-home"></span> Página Inicial</a></li>
+                    <li class="nav-item"><a href="/catalogo" class="nav-link" aria-label="Catálogo de Peças"><span class="fas fa-list"></span> Catálogo de Peças</a></li>
+                    <li class="nav-item"><a href="/forms" class="nav-link" aria-label="Trabalhe Conosco"><span class="fas fa-user-plus"></span> Trabalhe Conosco</a></li>
+                    <li class="nav-item"><a href="/contato" class="nav-link" aria-label="Contato"><span class="fas fa-phone"></span> Contato</a></li>
+                    <li class="nav-item"><a href="{% url 'admin:index' %}" class="nav-link" aria-label="Área Administrativa"><span class="fas fa-lock"></span> Área Administrativa</a></li>
                 </ul>
                 
                 <!-- Botão para alternar tema -->
-                <button class="botao-tema" id="botao-tema">
+                <button class="botao-tema" id="botao-tema" aria-label="Mudar Tema">
                     <span class="fas fa-moon"></span>
                     <span class="texto-tema">Mudar Tema</span>
                 </button>
@@ -70,7 +73,7 @@
     {% endif %}
     
     <!-- Conteúdo principal -->
-    <main>
+    <main id="main-content">
         {% block conteudo %}{% endblock %}
     </main>
 
@@ -115,9 +118,9 @@
                 <p>Sábados: 8:00h - 12:00h</p>
                 
                 <div class="links-sociais">
-                    <a href="#" class="link-social"><span class="fab fa-facebook"></span></a>
-                    <a href="#" class="link-social"><span class="fab fa-instagram"></span></a>
-                    <a href="#" class="link-social"><span class="fab fa-whatsapp"></span></a>
+                    <a href="#" class="link-social" aria-label="Facebook"><span class="fab fa-facebook"></span></a>
+                    <a href="#" class="link-social" aria-label="Instagram"><span class="fab fa-instagram"></span></a>
+                    <a href="#" class="link-social" aria-label="WhatsApp"><span class="fab fa-whatsapp"></span></a>
                 </div>
             </div>
         </div>

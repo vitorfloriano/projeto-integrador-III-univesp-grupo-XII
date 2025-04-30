@@ -59,3 +59,20 @@
   /* Estados de foco */
   --cor-foco: rgba(0, 112, 243, 0.25);
 }
+
+/* Improved color contrast */
+:root {
+  --cor-texto: #000000;
+  --cor-texto-secundario: #333333;
+  --cor-titulo: #000000;
+  --cor-label: #222222;
+  --cor-fundo-pagina: #ffffff;
+  --cor-fundo-card: #f9f9f9;
+  --cor-fundo-secao-alt: #f2f2f2;
+  --cor-fundo-controle: #f9f9f9;
+  --cor-fundo-input: #f9f9f9;
+  --cor-fundo-hover: #e6e6e6;
+  --cor-fundo-formulario: #f9f9f9;
+  --cor-borda: #cccccc;
+  --cor-borda-input: #b3b3b3;
+}

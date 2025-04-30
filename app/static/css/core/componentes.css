@@ -205,6 +205,18 @@ textarea.form-controle {
   margin-top: var(--espaco-minimo);
 }
 
+/* Visual indicators for form fields with validation errors */
+.form-controle[aria-invalid="true"] {
+  border-color: var(--cor-erro);
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.15);
+}
+
+.erro-mensagem {
+  color: var(--cor-erro);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
 /* Alertas */
 .alerta {
   padding: var(--espaco-medio) var(--espaco-grande);
@@ -316,7 +328,7 @@ textarea.form-controle {
 .tabela th {
   font-weight: var(--peso-fonte-semi-negrito);
   background-color: var(--cor-fundo-secao-alt);
-  color: var(--cor-texto);
+  color: var (--cor-texto);
   font-size: 0.875rem;
 }
 

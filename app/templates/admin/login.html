@@ -23,7 +23,7 @@
 <!-- O container de logo está removido, pois já temos um no cabeçalho -->
 
 {% if form.errors and not form.non_field_errors %}
-<p class="errornote">
+<p class="errornote" role="alert" aria-live="assertive">
     <i class="fas fa-exclamation-circle"></i>
     {% blocktranslate count counter=form.errors.items|length %}Por favor, corrija o erro abaixo.{% plural %}Por favor, corrija os erros abaixo.{% endblocktranslate %}
 </p>
@@ -31,7 +31,7 @@
 
 {% if form.non_field_errors %}
 {% for error in form.non_field_errors %}
-<p class="errornote">
+<p class="errornote" role="alert" aria-live="assertive">
     <i class="fas fa-exclamation-circle"></i>
     {{ error }}
 </p>
@@ -39,7 +39,7 @@
 {% endif %}
 
 {% if user.is_authenticated %}
-<p class="errornote">
+<p class="errornote" role="alert" aria-live="assertive">
     <i class="fas fa-user-shield"></i>
     {% blocktranslate trimmed %}
         Você está autenticado como {{ username }}, mas não tem permissão para
