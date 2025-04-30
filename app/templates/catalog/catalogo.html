@@ -20,7 +20,7 @@
                 <div class="grupo-filtro">
                     <div class="item-filtro">
                         <label for="categoria">Categoria:</label>
-                        <select id="categoria" name="categoria" class="select-filtro">
+                        <select id="categoria" name="categoria" class="select-filtro" aria-label="Categoria">
                             <option value="">Todas as categorias</option>
                             {% for categoria in categorias %}
                             <option value="{{ categoria.id_categoria }}" {% if selected_categoria == categoria.id_categoria|stringformat:"i" %}selected{% endif %}>{{ categoria.nome_categoria }}</option>
@@ -30,7 +30,7 @@
 
                     <div class="item-filtro">
                         <label for="marca">Marca:</label>
-                        <select id="marca" name="marca" class="select-filtro">
+                        <select id="marca" name="marca" class="select-filtro" aria-label="Marca">
                             <option value="">Todas as marcas</option>
                             {% for marca in marcas %}
                             <option value="{{ marca.id_marca }}" {% if selected_marca == marca.id_marca|stringformat:"i" %}selected{% endif %}>{{ marca.nome_marca }}</option>
@@ -41,15 +41,15 @@
 
                 <div class="grupo-busca">
                     <div class="barra-busca">
-                        <input type="text" id="campo-busca" name="search" placeholder="Buscar peças..." value="{{ search_term }}">
-                        <button type="submit" class="botao-busca"><i class="fa fa-search"></i></button>
+                        <input type="text" id="campo-busca" name="search" placeholder="Buscar peças..." value="{{ search_term }}" aria-label="Buscar peças">
+                        <button type="submit" class="botao-busca" aria-label="Buscar"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
             
             <div class="acoes-filtro">
-                <button type="submit" class="botao botao-primario botao-filtrar">Aplicar Filtros</button>
-                <a href="{% url 'catalogo' %}" class="botao botao-secundario botao-limpar">Limpar Filtros</a>
+                <button type="submit" class="botao botao-primario botao-filtrar" aria-label="Aplicar Filtros">Aplicar Filtros</button>
+                <a href="{% url 'catalogo' %}" class="botao botao-secundario botao-limpar" aria-label="Limpar Filtros">Limpar Filtros</a>
             </div>
         </form>
     </div>
@@ -77,7 +77,7 @@
                 </div>
                 
                 <div class="produto-rodape">
-                    <a href="#" class="botao-produto">Mais Detalhes</a>
+                    <a href="#" class="botao-produto" aria-label="Mais Detalhes">Mais Detalhes</a>
                 </div>
             </div>
             {% empty %}
@@ -85,7 +85,7 @@
                 <div class="mensagem-sem-produtos">
                     <i class="fa fa-search-minus"></i>
                     <p>Nenhum produto encontrado com os filtros selecionados.</p>
-                    <a href="{% url 'catalogo' %}" class="botao-limpar-busca">Limpar Busca</a>
+                    <a href="{% url 'catalogo' %}" class="botao-limpar-busca" aria-label="Limpar Busca">Limpar Busca</a>
                 </div>
             </div>
             {% endfor %}

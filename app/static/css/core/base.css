@@ -207,7 +207,6 @@ main {
 @media (max-width: 768px) {
   html {
     font-size: 14px;
-  }
   
   main {
     margin-top: 56px; /* Ajustado para altura do cabeçalho mobile */
@@ -226,4 +225,50 @@ main {
   h2 {
     font-size: calc(var(--tamanho-titulo-medio) * 0.85);
   }
+}
+
+/* Improved color contrast */
+body {
+  color: #111111;
+  background-color: #fafafa;
+}
+
+a {
+  color: #ff4d4f;
+}
+
+a:hover {
+  color: #d9363e;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000000;
+}
+
+p {
+  color: #111111;
+}
+
+ul, ol {
+  color: #111111;
+}
+
+button, input, select, textarea {
+  color: #111111;
+  background-color: #ffffff;
+  border-color: #e1e1e1;
+}
+
+button:hover, input:hover, select:hover, textarea:hover {
+  background-color: #f5f5f5;
+}
+
+button:focus, input:focus, select:focus, textarea:focus {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.15);
+}
+
+::selection {
+  background-color: rgba(255, 77, 79, 0.15);
+  color: #111111;
 }

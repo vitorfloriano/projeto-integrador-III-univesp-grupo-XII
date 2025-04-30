@@ -59,3 +59,20 @@
   /* Estados de foco */
   --cor-foco: rgba(255, 77, 79, 0.25);
 }
+
+/* Improved color contrast */
+:root {
+  --cor-texto: #f0f0f0;
+  --cor-texto-secundario: #cccccc;
+  --cor-titulo: #ffffff;
+  --cor-label: #bbbbbb;
+  --cor-fundo-pagina: #121212;
+  --cor-fundo-card: #1e1e1e;
+  --cor-fundo-secao-alt: #2a2a2a;
+  --cor-fundo-controle: #1e1e1e;
+  --cor-fundo-input: #1e1e1e;
+  --cor-fundo-hover: #333333;
+  --cor-fundo-formulario: #1e1e1e;
+  --cor-borda: #444444;
+  --cor-borda-input: #555555;
+}
